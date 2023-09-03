@@ -1,0 +1,53 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "dashboard-analytics"
+    },
+    {
+      "name": "Admin",
+      "icon": "menu-icon tf-icons bx bx-cog",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/roles",
+          "name": "Manage Roles",
+          "slug": "Manage Roles"
+        },
+        {
+          "url": "/permissions",
+          "name": "Permissions",
+          "slug": "Permissions"
+        },
+        {
+          "url": "/users/create",
+          "name": "Add User",
+          "slug": "Add User"
+        },
+        {
+          "url": "/users",
+          "name": "View User",
+          "slug": "View User"
+        },
+        {
+          "url": "/logActivity",
+          "name": "User Activity",
+          "slug": "User Activity"
+        },
+        {
+          "url": "/createCompany",
+          "name": "Create Company",
+          "slug": "Create Company"
+        },
+        {
+          "url": "/showinvitations",
+          "name": "Invitations",
+          "slug": "Invitations"
+        }
+      ]
+    }    
+    
+  ]
+}
