@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
@@ -50,6 +51,8 @@ class User extends Authenticatable
     */
    public function companies(): BelongsToMany
    {
-       return $this->belongsToMany(User::class,"company_users", 'user_id', 'company_id');
+       return $this->belongsToMany(Company::class,"company_users", 'user_id', 'company_id')->withPivot('status');
    }
+
+   
 }

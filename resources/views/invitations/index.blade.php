@@ -16,13 +16,14 @@
 
 @section('content')
 <div class="row">
-  <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+  <div class="col-16 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
     <div class="card">
       <div class="row row-bordered g-0">
-        <div class="col-md-12">
+        <div class="col-md-14">
             <div class="card-body">
             @if (!empty($invitations))
-                    <table class="table table-responsive table-striped" style="margin-bottom: 0">
+            <div class="table-responsive text-nowrap">
+                    <table class="table table-striped" >
                         <thead>
                             <tr>
                                 <th>Email</th>
@@ -42,6 +43,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
                 @else
                     <p>No invitation requests!</p>
                 @endif

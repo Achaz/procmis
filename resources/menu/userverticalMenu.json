@@ -1,0 +1,28 @@
+{
+    "menu": [
+     {
+        "url": "/user",
+        "name": "Dashboard",
+        "icon": "menu-icon tf-icons bx bx-home-circle",
+        "slug": "dashboard-analytics"
+      },
+      {
+        "name": "Home",
+        "icon": "menu-icon tf-icons bx bx-cog",
+        "slug": "layouts",
+        "submenu": [
+          {
+            "url": "/createCompany",
+            "name": "Create Company",
+            "slug": "Create Company"
+          },
+          {
+            "url": "/registercompanyuser",
+            "name": "Register User",
+            "slug": "Register User"
+          }
+        ]
+      }    
+      
+    ]
+  }

@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Login\RememberMeExpiration;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
     use RememberMeExpiration;
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo;
 
     /**
      * Display login page.
@@ -58,6 +65,25 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user) 
     {
-        return redirect()->intended();
+        //return redirect()->intended();
+        switch(Auth::user()->role){
+
+            case 1:                
+                return redirect('/superadmin');               
+                break;
+
+            case 2:               
+                return redirect('/admin');     
+                break;
+         
+            case 3:               
+                return redirect('/user');             
+                break;
+
+            default:              
+                return redirect('/login');
+                
+        }
     }
+
 }

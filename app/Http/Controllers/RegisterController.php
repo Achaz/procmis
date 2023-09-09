@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         //auth()->login($user);
 
-        return redirect('/register')->with('success', "Account successfully registered.");
+        return redirect('/register/request')->with('success', "Account successfully registered. Please <a class=\"btn btn-link\" href=\"{{ route('login.show') }}\">login</a>");
     }
 
     public function requestInvitation() {

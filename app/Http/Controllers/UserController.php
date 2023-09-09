@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash as FacadesHash;
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -57,6 +58,32 @@ class UserController extends Controller
     
         return redirect()->route('requestInvitation')
                         ->with('success','Account created successfully. Please login');
+    }
+
+    public function companyUser(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:250',
+            'email' => 'required|email|max:250|unique:users',
+            'username' => 'required|string|max:250'
+        ]);
+    
+        $input = $request->all();
+
+        $input['user_id']=$request->user()->id;
+       
+        $user = User::create($input);
+        
+        $user->assignRole($request->input('roles'));
+
+        return redirect()->route('company.createuser')
+                        ->with('success','Company User created successfully');
+    }
+
+    public function CreateCompanyUser(Request $request)
+    {
+        $user_id = User::get(['id']);
+        return view('company.createuser', compact('user_id'));
     }
     
     /**
