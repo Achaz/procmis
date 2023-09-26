@@ -39,32 +39,6 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
 Route::get('/user', 'GeneralUserController@index')->name('user');
 
-
-
-Route::get('/roles', 'RoleController@index')->name('roles.index');
-Route::get('/rolescreate', 'RoleController@create')->name('roles.create');
-Route::get('/rolesstore', 'RoleController@store')->name('roles.store');
-Route::get('/rolesshow', 'RoleController@show')->name('roles.show');
-Route::get('/rolesedit', 'RoleController@edit')->name('roles.edit');
-Route::get('/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
-Route::get('/permissions', 'PermissionsController@index')->name('permissions.index');
-Route::get('/permissionscreate', 'PermissionsController@create')->name('permissions.create');
-Route::get('/permissionsstore', 'PermissionsController@store')->name('permissions.store');
-Route::get('/permissionsshow', 'PermissionsController@show')->name('permissions.show');
-Route::get('/permissionsedit', 'PermissionsController@edit')->name('permissions.edit');
-Route::get('/permissionsdestroy', 'PermissionsController@destroy')->name('permissions.destroy');
-Route::get('/create', 'UserController@create')->name('users.create');
-Route::post('/create', 'UserController@store')->name('users.store');
-Route::get('/{user}/show', 'UserController@show')->name('users.show');
-Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
-Route::post('/{user}/update', 'UserController@update')->name('users.update');
-Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy');
-Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
-Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
-
-
-
-
 Route::get('/user/{user}/show', 'UserController@companyusersshow')->name('companyusers.show');
 Route::get('/user/{user}/edit', 'UserController@companyuseredit')->name('companyusers.edit');
 Route::post('/user/{user}/update', 'UserController@update')->name('companyusers.update');
@@ -93,4 +67,27 @@ Route::group([], function () {
     Route::get('/companies', 'CreateCompany@show')->name('company.show');
     Route::post('/companies', 'CreateCompany@store')->name('company.store');
     Route::get('companies/{company}/users', 'CreateCompany@manageUser')->name('company.user.manage');
+
+    Route::get('/roles', 'RoleController@index')->name('roles.index');
+    Route::get('/rolescreate', 'RoleController@create')->name('roles.create');
+    Route::get('/rolesstore', 'RoleController@store')->name('roles.store');
+    Route::get('/rolesshow', 'RoleController@show')->name('roles.show');
+    Route::get('/rolesedit', 'RoleController@edit')->name('roles.edit');
+    Route::get('/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
+    Route::get('/permissions', 'PermissionsController@index')->name('permissions.index');
+    Route::get('/permissionscreate', 'PermissionsController@create')->name('permissions.create');
+    Route::get('/permissionsstore', 'PermissionsController@store')->name('permissions.store');
+    Route::get('/permissionsshow', 'PermissionsController@show')->name('permissions.show');
+    Route::get('/permissionsedit', 'PermissionsController@edit')->name('permissions.edit');
+    Route::get('/permissionsdestroy', 'PermissionsController@destroy')->name('permissions.destroy');
+    Route::get('/create', 'UserController@create')->name('users.create');
+    Route::post('/create', 'UserController@store')->name('users.store');
+    Route::get('/{user}/show', 'UserController@show')->name('users.show');
+    Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
+    Route::post('/{user}/update', 'UserController@update')->name('users.update');
+    Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy');
+    Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
+    Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
+
+
 });
