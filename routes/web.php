@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateCompany;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
@@ -15,14 +16,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
 
-    
+
     Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     Route::get('add-to-log', 'HomeController@myTestAddToLog');
-
-    
-    
 });
 
 /**
@@ -36,30 +34,63 @@ Route::group(['prefix' => 'users'], function() {
 */
 //Auth::routes();
 
-Route::get('/admin', 'HomeController@index')->name('admin')->middleware('admin');
-//Route::get('/', 'HomeController@index')->name('home.index')->middleware('admin');
+Route::get('/admin', 'HomeController@index')->name('admin');
+//Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
-Route::get('/user', 'GeneralUserController@index')->name('user')->middleware('user');
-Route::get('/createCompany', 'CreateCompany@index')->name('company.create')->middleware('user');
-Route::post('/createCompanyaction', 'CreateCompany@store')->name('create.submit')->middleware('user');
-Route::get('/showinvitations', 'InvitationsController@index')->name('showInvitations');
-Route::get('logActivity', 'HomeController@logActivity')->middleware('admin');
-Route::resource('/roles', RoleController::class)->middleware('admin');
-Route::resource('/permissions', PermissionsController::class)->middleware('admin');;
-Route::get('/create', 'UserController@create')->name('users.create')->middleware('admin');
-Route::post('/create', 'UserController@store')->name('users.store')->middleware('admin');
-Route::get('/{user}/show', 'UserController@show')->name('users.show')->middleware('admin');
-Route::get('/{user}/edit', 'UserController@edit')->name('users.edit')->middleware('admin');
-Route::post('/{user}/update', 'UserController@update')->name('users.update')->middleware('admin');
-Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy')->middleware('admin');
-Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser')->middleware('user');
-Route::post('/companyuser', 'UserController@companyUser')->name('users.company')->middleware('user');
+Route::get('/user', 'GeneralUserController@index')->name('user');
+
+
+
+Route::get('/roles', 'RoleController@index')->name('roles.index');
+Route::get('/rolescreate', 'RoleController@create')->name('roles.create');
+Route::get('/rolesstore', 'RoleController@store')->name('roles.store');
+Route::get('/rolesshow', 'RoleController@show')->name('roles.show');
+Route::get('/rolesedit', 'RoleController@edit')->name('roles.edit');
+Route::get('/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
+Route::get('/permissions', 'PermissionsController@index')->name('permissions.index');
+Route::get('/permissionscreate', 'PermissionsController@create')->name('permissions.create');
+Route::get('/permissionsstore', 'PermissionsController@store')->name('permissions.store');
+Route::get('/permissionsshow', 'PermissionsController@show')->name('permissions.show');
+Route::get('/permissionsedit', 'PermissionsController@edit')->name('permissions.edit');
+Route::get('/permissionsdestroy', 'PermissionsController@destroy')->name('permissions.destroy');
+Route::get('/create', 'UserController@create')->name('users.create');
+Route::post('/create', 'UserController@store')->name('users.store');
+Route::get('/{user}/show', 'UserController@show')->name('users.show');
+Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
+Route::post('/{user}/update', 'UserController@update')->name('users.update');
+Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy');
+Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
+Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
+
+
+
+
+Route::get('/user/{user}/show', 'UserController@companyusersshow')->name('companyusers.show');
+Route::get('/user/{user}/edit', 'UserController@companyuseredit')->name('companyusers.edit');
+Route::post('/user/{user}/update', 'UserController@update')->name('companyusers.update');
+Route::delete('/user/{user}/delete', 'UserController@destroy')->name('companyusers.destroy');
 
 Route::get('/login',  'LoginController@show')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login.perform');
-Route::get('/register/request', 'RegisterController@requestInvitation')->name('requestInvitation');
-Route::post('invitations', 'InvitationsController@store')->name('storeInvitation');
+
 Route::get('register', 'RegisterController@showRegistrationForm')->name('register')->middleware('hasInvitation');
+Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
+Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
+
+///company manage users 
+Route::group([], function () {
+    Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
+
+    Route::get('/invitations/invite', 'RegisterController@requestInvitation')->name('requestInvitation');
+    Route::post('invitations', 'InvitationsController@store')->name('storeInvitation');
+    Route::get('/invitations', 'InvitationsController@index')->name('showInvitations');
+
+    Route::get('users/activity', 'HomeController@logActivity');
+    Route::get('/users', 'UserController@viewcompanyUser')->name('users.view');
 
 
-
+    Route::get('/companies/create', 'CreateCompany@index')->name('company.create');
+    Route::get('/companies', 'CreateCompany@show')->name('company.show');
+    Route::post('/companies', 'CreateCompany@store')->name('company.store');
+    Route::get('companies/{company}/users', 'CreateCompany@manageUser')->name('company.user.manage');
+});

@@ -66,6 +66,8 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user) 
     {
         //return redirect()->intended();
+
+        //Auth::user()->hasRole('')
         switch(Auth::user()->role){
 
             case 1:                

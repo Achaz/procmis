@@ -72,7 +72,7 @@
                       </div>
                       <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Add Role</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-dark">Back</a>
+                        <a href="{{ route('roles.index') }}" class="btn btn-dark">Back</a>
                       </div>
                     </form>
                 </div>           

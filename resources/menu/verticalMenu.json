@@ -7,7 +7,35 @@
       "slug": "dashboard-analytics"
     },
     {
-      "name": "Admin",
+      "name": "Users",
+      "icon": "menu-icon tf-icons bx bx-cog",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/invitations/invite",
+          "name": "Invite",
+          "slug": "invite"
+        },
+                {
+          "url": "/invitations",
+          "name": "Invitations",
+          "slug": "Invitations"
+        },
+        
+        {
+          "url": "/users/activity",
+          "name": "User Activity",
+          "slug": "User Activity"
+        },
+        {
+          "url": "/users",
+          "name": "View Users",
+          "slug": "View Users"
+        }
+      ]
+    },
+    {
+      "name": "Settings",
       "icon": "menu-icon tf-icons bx bx-cog",
       "slug": "layouts",
       "submenu": [
@@ -20,34 +48,27 @@
           "url": "/permissions",
           "name": "Permissions",
           "slug": "Permissions"
-        },
+        }
+      ]
+    },
+    {
+      "name": "Company",
+      "icon": "menu-icon tf-icons bx bx-cog",
+      "slug": "layouts",
+      "submenu": [
         {
-          "url": "/users/create",
-          "name": "Add User",
-          "slug": "Add User"
-        },
-        {
-          "url": "/users",
-          "name": "View User",
-          "slug": "View User"
-        },
-        {
-          "url": "/logActivity",
-          "name": "User Activity",
-          "slug": "User Activity"
-        },
-        {
-          "url": "/createCompany",
+          "url": "/companies/create",
           "name": "Create Company",
           "slug": "Create Company"
         },
         {
-          "url": "/showinvitations",
-          "name": "Invitations",
-          "slug": "Invitations"
+          "url": "/companies",
+          "name": "View Company",
+          "slug": "View Company"
         }
       ]
-    }    
+    }
+         
     
   ]
 }

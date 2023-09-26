@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\CompanyCreatedEvent;
 use App\Models\Company;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Response;
 
 class CreateCompany extends Controller
 {
@@ -29,7 +32,7 @@ class CreateCompany extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-      
+
 
         $organisationName = $request->input('organisationName');
         $category = $request->input('category');
@@ -63,6 +66,48 @@ class CreateCompany extends Controller
             DB::rollBack();
             throw $th;
         }
-        return redirect('/createCompany')->with('success', "Company successfully registered");
+        return redirect('/companies')->with('success', "Company successfully registered");
+    }
+
+    public function show(Request $request)
+    {
+        $companies = $request->user()->companies()->paginate(10);
+
+        return view('company.view', compact('companies'));
+    }
+    public function manageUser(Request $request, $id)
+    {
+
+        $company = Company::find($id);
+        $company_users = $company->users;
+
+        $users = $request->user()->users;
+        
+        return view('company.adduser', compact('users', 'company_users', 'company'));
+    }
+
+    public function userSync(Request $request, Company $company): RedirectResponse
+    {
+        $input = $request->validate(["user_ids" => ["required"]]);
+        $user = $request->user();
+        $company_admins = $company->users()->whereStatus(5)->get();
+
+        try {
+
+            throw_unless(in_array($user->id, $company_admins->pluck('id')->all()), "User not permitted to add other users");
+
+            $users =array_reduce($input["user_ids"], function ($c, $i) {
+                    $c[$i] =  ["status" => 2];
+                    return $c;
+                }, []);
+
+            ($company->users()->sync($users, false));
+
+        } catch (\Throwable $th) {
+        
+            return redirect()->back()->with(["status" => "Failed sync"]);
+        }
+
+        return redirect()->back()->with(["status" => "Succussful sync"]);
     }
 }

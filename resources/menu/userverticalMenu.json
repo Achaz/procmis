@@ -17,9 +17,19 @@
             "slug": "Create Company"
           },
           {
+            "url": "/viewCompany",
+            "name": "View Company",
+            "slug": "View Company"
+          },
+          {
             "url": "/registercompanyuser",
             "name": "Register User",
             "slug": "Register User"
+          },
+          {
+            "url": "/viewcompanyuser",
+            "name": "View Users",
+            "slug": "View Users"
           }
         ]
       }    

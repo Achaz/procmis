@@ -29,6 +29,7 @@
 
           <form id="formAuthentication" class="mb-3" action="{{ route('users.store') }}" method="post">
           @csrf
+          <input type="hidden" value="{{ $invitation->invitation_token }}"  id="token" name="token" >
             <div class="mb-3">
              <label class="form-label" for="name" >Name</label>           
              <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
@@ -39,8 +40,8 @@
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control disabled" value="{{ $email }}" disabled>
-              <input id="email" type="hidden" class="form-control disabled" name="email" value="{{ $email }}">
+              <input type="email" class="form-control disabled" value="{{ $invitation->email }}" disabled>
+              <input id="email" type="hidden" class="form-control disabled" name="email" value="{{ $invitation->email }}">
             </div>
             <div class="mb-3 form-password-toggle">
               <label class="form-label" for="password">Password</label>

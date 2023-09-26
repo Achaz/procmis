@@ -25,17 +25,17 @@ class Admin
          * @return mixed
          */
    
-        if (!Auth::check()) {
-            return redirect()->route('login.show');
-        }
+        // if (!Auth::check()) {
+        //     return redirect()->route('login.show');
+        // }
 
-        if (Auth::user()->role == 1) {
-            return redirect()->route('superadmin');
-        }
+        // if (Auth::user()->role == 1) {
+        //     return redirect()->route('superadmin');
+        // }
 
-        if (Auth::user()->role == 2) {
+        // if (Auth::user()->role == 2) {
             return $next($request);
-        }
+        //}
         
 
         

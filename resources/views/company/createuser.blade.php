@@ -1,4 +1,4 @@
-@extends('layouts/usercontentNavbarLayout')
+@extends('layouts/contentNavbarLayout')
 
 @section('title', 'Company Users')
 

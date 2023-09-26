@@ -29,7 +29,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request) 
     {
         $user = User::create($request->validated());
-
+        $user->assignRole("company_admin");
         //auth()->login($user);
 
         return redirect('/register/request')->with('success', "Account successfully registered. Please <a class=\"btn btn-link\" href=\"{{ route('login.show') }}\">login</a>");
@@ -43,9 +43,8 @@ class RegisterController extends Controller
     {
         $invitation_token = $request->get('invitation_token');
         $invitation = Invitation::where('invitation_token', $invitation_token)->firstOrFail();
-        $email = $invitation->email;
 
-        return view('auth.register', compact('email'));
+        return view('auth.register', compact("invitation"));
     }
 
     /**

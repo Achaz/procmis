@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Models\Role;
 
 class Company extends Model
 {
@@ -23,6 +24,6 @@ class Company extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class,"company_users", 'company_id', 'user_id');
+        return $this->belongsToMany(User::class,"company_users", 'company_id', 'user_id')->withPivot('status');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts/usercontentNavbarLayout')
+@extends('layouts/contentNavbarLayout')
 
 @section('title', 'Create Company')
 
@@ -32,7 +32,7 @@
                 <p>{{ session('success') }}</p>
             </div>
             @endif
-            <form class="my-4" method="POST" action="{{ route('create.submit') }}">
+            <form class="my-4" method="POST" action="{{ route('company.store') }}">
             @csrf
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">

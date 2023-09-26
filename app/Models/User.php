@@ -26,6 +26,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'user_id'
     ];
 
     /**
@@ -54,5 +55,14 @@ class User extends Authenticatable
        return $this->belongsToMany(Company::class,"company_users", 'user_id', 'company_id')->withPivot('status');
    }
 
+   /**
+    * Get all of the users for the User
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function users(): HasMany
+   {
+       return $this->hasMany(User::class);
+   }
    
 }
