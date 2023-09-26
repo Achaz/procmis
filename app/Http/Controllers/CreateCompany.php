@@ -110,4 +110,22 @@ class CreateCompany extends Controller
 
         return redirect()->back()->with(["status" => "Succussful sync"]);
     }
+
+    public function roleSync(Request $request, Company $company): RedirectResponse
+    {
+        $input = $request->validate(["role_ids" => ["required"]]);
+
+        $userId = $request->user_id;
+        // Find the user model from the DB
+        $user = User::find($userId);
+        
+        if (! $user) {
+            // Redirect back
+        }
+        // Assign the roles to the user
+        $user->syncRoles($input);
+
+        //dd($user);
+        return redirect()->back()->with(["status" => "Succussful sync"]);
+    }
 }

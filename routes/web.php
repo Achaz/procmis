@@ -54,7 +54,7 @@ Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy'
 ///company manage users 
 Route::group([], function () {
     Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
-
+    Route::post("companies/{company}/roles/sync", "CreateCompany@roleSync")->name("company.roles.sync");
     Route::get('/invitations/invite', 'RegisterController@requestInvitation')->name('requestInvitation');
     Route::post('invitations', 'InvitationsController@store')->name('storeInvitation');
     Route::get('/invitations', 'InvitationsController@index')->name('showInvitations');

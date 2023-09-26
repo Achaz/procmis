@@ -65,6 +65,43 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="demoModal2" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="demoModalLabel">Assign User Role</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        @php
+                                        //$company_user_ids = $company_users->pluck("id")->all();
+                                        $roles = Spatie\Permission\Models\Role::get(['id','name']);
+                                        $userRole = $user->roles->pluck('name')->toArray();
+                                        
+                                        @endphp
+                                        <form action={{route('company.roles.sync',$company->id)}} method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <label class="form-label" for="category">Select User</label>
+                                                <input type="hidden" value="" name="user_id" id="user_id">
+                                                <div class="mt-2">
+                                                    <select class="form-select" multiple name="role_ids[]">
+                                                        <option value=0>Select Role</option>
+                                                        @foreach($roles as $role)
+                                                        <option value="{{ $role->id }}" {{ in_array($role->name, $userRole) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">Close</button>
+                                                <button type="submit" class="btn btn-primary" onclick="">Assign</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table table-striped">
@@ -80,9 +117,9 @@
                                 <tbody>
                                     @foreach ($company_users as $user)
                                     <tr>
-                                        <th scope="row">{{ $user->id }}</th>
+                                        <th scope="row" >{{ $user->id }}</th>
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->role }}</td>
+                                        <td>{{ implode(', ', $user->roles->pluck('name')->all()) }}</td>
 
                                         @if ($user->pivot->status ==5)
                                         <td></td>
@@ -93,7 +130,7 @@
                                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                             {!! Form::close() !!}
                                         </td>
-                                        <td><button type="button" id="submit"  class="btn btn-info btn-sm" data-toggle="modal" data-target="#demoModal" onclick="$('#demoModal').modal('show')">Manage Roles</but</td>
+                                        <td><button type="button"  class="btn btn-info btn-sm submit-user-button" data-toggle="modal" data-target="#demoModal2" data-user_id="{{ $user->id }}">Manage Roles</button></td>
                                         @endif
 
                                     </tr>
@@ -109,12 +146,19 @@
     </div>
 </div>
 @endsection
-@section('scripts')
+@push('js')
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-@endsection
+<script>
+    (function () {
+        $('.submit-user-button').on('click', function (e) {
+            $('#user_id').val($(e.target).data('user_id'));
+        })
+    }());
+</script>
+@endpush
 @section('styles')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 @endsection

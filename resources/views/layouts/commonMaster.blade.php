@@ -29,6 +29,8 @@
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
 
+  @stack('js')
+
 </body>
 
 </html>
