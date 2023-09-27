@@ -8,7 +8,7 @@
     },
     {
       "name": "Users",
-      "icon": "menu-icon tf-icons bx bx-cog",
+      "icon": "menu-icon tf-icons bx bx-group",
       "slug": "layouts",
       "submenu": [
         {
@@ -35,14 +35,14 @@
       ]
     },
     {
-      "name": "Settings",
-      "icon": "menu-icon tf-icons bx bx-cog",
+      "name": "Roles and Permissions",
+      "icon": "menu-icon tf-icons bx bx-user-check",
       "slug": "layouts",
       "submenu": [
         {
           "url": "/roles",
-          "name": "Manage Roles",
-          "slug": "Manage Roles"
+          "name": "Roles",
+          "slug": "Roles"
         },
         {
           "url": "/permissions",
@@ -53,7 +53,7 @@
     },
     {
       "name": "Company",
-      "icon": "menu-icon tf-icons bx bx-cog",
+      "icon": "menu-icon tf-icons bx bx-building",
       "slug": "layouts",
       "submenu": [
         {

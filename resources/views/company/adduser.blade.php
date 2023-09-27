@@ -35,8 +35,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="demoModalLabel">Add User to Company</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal').modal('hide')">
-                                                <span aria-hidden="true">&times;</span>
+                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal').modal('hide')">
+                                                
                                             </button>
                                         </div>
                                         @php
@@ -70,8 +70,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="demoModalLabel">Assign User Role</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">
-                                                <span aria-hidden="true">&times;</span>
+                                            <button type="button" class="btn-close" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">
+                                                
                                             </button>
                                         </div>
                                         @php
@@ -83,7 +83,7 @@
                                         <form action={{route('company.roles.sync',$company->id)}} method="post">
                                             @csrf
                                             <div class="modal-body">
-                                                <label class="form-label" for="category">Select User</label>
+                                                <label class="form-label" for="category">Select Role(s)</label>
                                                 <input type="hidden" value="" name="user_id" id="user_id">
                                                 <div class="mt-2">
                                                     <select class="form-select" multiple name="role_ids[]">
@@ -119,8 +119,11 @@
                                     <tr>
                                         <th scope="row" >{{ $user->id }}</th>
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ implode(', ', $user->roles->pluck('name')->all()) }}</td>
-
+                                        <td>
+                                        @foreach ($user->roles as $role)
+                                          <span class="badge bg-primary">{{ $role->name }}</span>
+                                        @endforeach
+                                        </td>
                                         @if ($user->pivot->status ==5)
                                         <td></td>
                                         <td></td>
