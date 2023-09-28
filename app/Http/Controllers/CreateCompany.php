@@ -113,8 +113,9 @@ class CreateCompany extends Controller
 
     public function roleSync(Request $request, Company $company): RedirectResponse
     {
+        //dd($request->all());
         $input = $request->validate(["role_ids" => ["required"]]);
-
+        //dd($input);
         $userId = $request->user_id;
         // Find the user model from the DB
         $user = User::find($userId);
@@ -123,8 +124,16 @@ class CreateCompany extends Controller
             // Redirect back
         }
         // Assign the roles to the user
-        $user->syncRoles($input);
-
+        $user->syncRoles($input['role_ids']);
+        // Find the company that the user belongs to and update the status
+        // $company->users()->syncWithPivotValues($userId, ['status' => $input['role_ids']]);
+        // DB::table('company_users')
+        //     ->where('company_id', $company->id)
+        //     ->where('user_id', $userId)
+        //     ->update([
+        //         'company_id' => $company->id, 
+        //         'user_id' => $userId, 'status' => $input['role_id']
+        //     ]);
         //dd($user);
         return redirect()->back()->with(["status" => "Succussful sync"]);
     }

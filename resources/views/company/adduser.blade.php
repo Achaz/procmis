@@ -46,10 +46,10 @@
                                         <form action={{route('company.user.sync',$company->id)}} method="post">
                                             @csrf
                                             <div class="modal-body">
-                                                <label class="form-label" for="category">Select User</label>
-                                                <div class="mt-2">
-                                                    <select class="form-select" multiple name="user_ids[]">
-
+                                                <label class="form-label" for="category">Select User</label>  
+                                                                                       
+                                                <div class="mt-2">                                                  
+                                                    <select class="form-select" multiple="multiple" name="user_ids[]">
                                                         <option value=0>Select User</option>
                                                         @foreach($users as $user)
                                                         <option value="{{ $user->id }}" {{in_array( $user->id,$company_user_ids)?"selected":null }}>{{ $user->name }}</option>
@@ -70,8 +70,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="demoModalLabel">Assign User Role</h5>
-                                            <button type="button" class="btn-close" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">
-                                                
+                                            <button type="button" class="btn-close" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#demoModal2').modal('hide')">                                               
                                             </button>
                                         </div>
                                         @php
@@ -84,14 +83,19 @@
                                             @csrf
                                             <div class="modal-body">
                                                 <label class="form-label" for="category">Select Role(s)</label>
-                                                <input type="hidden" value="" name="user_id" id="user_id">
+                                                <input type="hidden" value="" name="user_id" id="user_id">                                               
                                                 <div class="mt-2">
-                                                    <select class="form-select" multiple name="role_ids[]">
-                                                        <option value=0>Select Role</option>
+                                                    <ul class="list-group">
                                                         @foreach($roles as $role)
-                                                        <option value="{{ $role->id }}" {{ in_array($role->name, $userRole) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                                        <li class="list-group-item border-0">
+                                                            <label for="role-{{ $role->id }}">
+                                                            <input type="checkbox" name="role_ids[]" id="role-{{ $role->id }}"
+                                                                value="{{ $role->id }}" {{ in_array($role->name, $userRole) ? 'selected' : '' }}>
+                                                                {{ $role->name }}
+                                                            </label>
+                                                        </li>
                                                         @endforeach
-                                                    </select>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -109,8 +113,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Role</th>
-                                        
+                                        <th>Role</th>                                       
                                         <th scope="col" width="1%" colspan="2"></th>
                                     </tr>
                                 </thead>
@@ -135,13 +138,11 @@
                                         </td>
                                         <td><button type="button"  class="btn btn-info btn-sm submit-user-button" data-toggle="modal" data-target="#demoModal2" data-user_id="{{ $user->id }}">Manage Roles</button></td>
                                         @endif
-
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -154,6 +155,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/i18n/defaults-*.min.js"></script>
 <script>
     (function () {
         $('.submit-user-button').on('click', function (e) {
@@ -161,7 +167,37 @@
         })
     }());
 </script>
+<script>
+        const chBoxes =
+            document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+        const dpBtn = 
+            document.getElementById('multiSelectDropdown');
+        let mySelectedListItems = [];
+  
+        function handleCB() {
+            mySelectedListItems = [];
+            let mySelectedListItemsText = '';
+  
+            chBoxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    mySelectedListItems.push(checkbox.name);
+                    mySelectedListItemsText += checkbox.name + ', ';
+                }
+            });
+  
+            dpBtn.innerText =
+                mySelectedListItems.length > 0
+                    ? mySelectedListItemsText.slice(0, -2) : 'Select';
+        }
+  
+        chBoxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', handleCB);
+        });
+</script>
+
 @endpush
 @section('styles')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 @endsection
