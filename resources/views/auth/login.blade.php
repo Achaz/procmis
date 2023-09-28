@@ -52,9 +52,6 @@
               </div>
             </div>
             <div class="mb-3">
-                <a href="{{url('/invitations/invite')}}" class="app-brand-link gap-2">Request Invitation</a>
-            </div>
-            <div class="mb-3">
               <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
             </div>
           </form>
