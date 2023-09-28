@@ -71,9 +71,10 @@ Route::group([], function () {
     Route::get('/roles', 'RoleController@index')->name('roles.index');
     Route::get('/rolescreate', 'RoleController@create')->name('roles.create');
     Route::get('/rolesstore', 'RoleController@store')->name('roles.store');
-    Route::get('/rolesshow', 'RoleController@show')->name('roles.show');
-    Route::get('/rolesedit', 'RoleController@edit')->name('roles.edit');
-    Route::get('/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
+    Route::get('/{roles}/rolesshow', 'RoleController@show')->name('roles.show');
+    Route::get('/{roles}/rolesedit', 'RoleController@edit')->name('roles.edit');
+    Route::get('/{roles}/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
+    Route::post('/rolesupdate','RoleController@update')->name('roles.update');
     Route::get('/permissions', 'PermissionsController@index')->name('permissions.index');
     Route::get('/permissionscreate', 'PermissionsController@create')->name('permissions.create');
     Route::get('/permissionsstore', 'PermissionsController@store')->name('permissions.store');
