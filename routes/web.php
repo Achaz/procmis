@@ -4,6 +4,8 @@ use App\Http\Controllers\CreateCompany;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
+use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +16,9 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function () {
+  return 'PROCMIS';
+});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -23,12 +27,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('add-to-log', 'HomeController@myTestAddToLog');
 });
 
+
 /**
  * User Routes
  */
 /*
 Route::group(['prefix' => 'users'], function() {
-    
+
     Route::get('/createCompany', 'CreateCompany@index')->name('company.create');
 });
 */
@@ -36,7 +41,7 @@ Route::group(['prefix' => 'users'], function() {
 
 Route::get('/admin', 'HomeController@index')->name('admin');
 //Route::get('/', 'HomeController@index')->name('home.index');
-Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
+//Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
 Route::get('/user', 'GeneralUserController@index')->name('user');
 
 Route::get('/user/{user}/show', 'UserController@companyusersshow')->name('companyusers.show');
@@ -51,7 +56,8 @@ Route::get('register', 'RegisterController@showRegistrationForm')->name('registe
 Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
 Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
 
-///company manage users 
+
+///company manage users
 Route::group([], function () {
     Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
     Route::post("companies/{company}/roles/sync", "CreateCompany@roleSync")->name("company.roles.sync");
@@ -89,6 +95,5 @@ Route::group([], function () {
     Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy');
     Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
     Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
-
-
 });
+

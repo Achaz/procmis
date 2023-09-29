@@ -14,9 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invitations', function (Blueprint $table) {
+        Schema::create('invitations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('email')->unique();
+            $table->char('invitation_token', 32)->unique()->nullable();
+            $table->timestamp('registered_at')->nullable();
             $table->foreignIdFor(User::class)->nullable();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -27,9 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('invitations', function (Blueprint $table) {
-            $table->dropColumn("user_id");
-            $table->dropColumn("deleted_at");
-        });
+        Schema::dropIfExists('invitations');
     }
 };

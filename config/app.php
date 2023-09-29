@@ -179,10 +179,10 @@ return [
     App\Providers\RouteServiceProvider::class,
     App\Providers\MenuServiceProvider::class,
     App\Providers\UserMenuServiceProvider::class,
-
+    App\Providers\TenancyServiceProvider::class,
   ],
 
-  
+
 
   /*
     |--------------------------------------------------------------------------
