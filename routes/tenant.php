@@ -25,5 +25,5 @@ Route::prefix('/{tenant}')
   ->name('tenants.')
   ->group(function () {
     Route::get('/', '\App\Http\Controllers\Tenants\DashboardController')->name('dashboard');
-    Route::resource('users', \App\Http\Controllers\Tenants\UsersController::class);
+    Route::resource('/users', \App\Http\Controllers\Tenants\UsersController::class);
 });

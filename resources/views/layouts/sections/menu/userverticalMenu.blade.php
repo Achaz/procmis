@@ -33,6 +33,7 @@
     @php
     $activeClass = null;
     $currentRouteName = Route::currentRouteName();
+    $tenantId = tenant('id');
 
     if ($currentRouteName === $menu->slug) {
     $activeClass = 'active';
@@ -56,7 +57,7 @@
 
     {{-- main menu --}}
     <li class="menu-item {{$activeClass}}">
-      <a href="{{ isset($menu->route) ? route($menu->route, tenant('id')) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
+      <a href="{{ isset($menu->route) ? route($menu->route, $tenantId) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
         @isset($menu->icon)
         <i class="{{ $menu->icon }}"></i>
         @endisset

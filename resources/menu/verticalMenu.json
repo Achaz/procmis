@@ -20,49 +20,8 @@
           "url": "/invitations",
           "name": "Invitations",
           "slug": "Invitations"
-        },
-        {
-          "url": "/users",
-          "name": "View Users",
-          "slug": "View Users"
-        }
-      ]
-    },
-    {
-      "name": "Roles and Permissions",
-      "icon": "menu-icon tf-icons bx bx-user-check",
-      "slug": "layouts",
-      "submenu": [
-        {
-          "url": "/roles",
-          "name": "Roles",
-          "slug": "Roles"
-        },
-        {
-          "url": "/permissions",
-          "name": "Permissions",
-          "slug": "Permissions"
-        }
-      ]
-    },
-    {
-      "name": "Company",
-      "icon": "menu-icon tf-icons bx bx-building",
-      "slug": "layouts",
-      "submenu": [
-        {
-          "url": "/companies/create",
-          "name": "Create Company",
-          "slug": "Create Company"
-        },
-        {
-          "url": "/companies",
-          "name": "View Company",
-          "slug": "View Company"
         }
       ]
     }
-
-
   ]
 }

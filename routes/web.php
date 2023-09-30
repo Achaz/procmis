@@ -62,10 +62,6 @@ Route::group([], function () {
     Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
     Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
 
-    Route::get('users/activity', 'HomeController@logActivity');
-    Route::get('/users', 'UserController@viewcompanyUser')->name('users.view');
-
-
     Route::get('/companies/create', 'CreateCompany@index')->name('company.create');
     Route::get('/companies', 'CreateCompany@show')->name('company.show');
     Route::post('/companies', 'CreateCompany@store')->name('company.store');
@@ -78,12 +74,7 @@ Route::group([], function () {
     Route::get('/{roles}/rolesedit', 'RoleController@edit')->name('roles.edit');
     Route::get('/{roles}/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
     Route::post('/rolesupdate','RoleController@update')->name('roles.update');
-    Route::get('/create', 'UserController@create')->name('users.create');
-    Route::post('/create', 'UserController@store')->name('users.store');
-    Route::get('/{user}/show', 'UserController@show')->name('users.show');
-    Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
-    Route::post('/{user}/update', 'UserController@update')->name('users.update');
-    Route::delete('/{user}/delete', 'UserController@destroy')->name('users.destroy');
+
     Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
     Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
 });
