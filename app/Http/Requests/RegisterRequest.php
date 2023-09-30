@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,7 +11,7 @@ class RegisterRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -20,13 +21,13 @@ class RegisterRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'email' => 'required|email:rfc,dns|unique:users,email',
-            'username' => 'required|unique:users,username',
+            'username' => 'required|unique:tenants,id',
             'password' => 'required|min:8',
-            'password_confirmation' => 'required|same:password'
+            'password_confirmation' => 'required|same:password',
+            'token' => 'required|string|max:40|exists:invitations,invitation_token'
         ];
     }
 }

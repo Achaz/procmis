@@ -8,14 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invitation extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'email', 'invitation_token', 'registered_at',
+        'email',
+        'invitation_token',
+        'registered_at',
+        'user_id'
     ];
 
-    public function generateInvitationToken() {
-        $this->invitation_token = substr(md5(rand(0, 9) . $this->email . time()), 0, 32);
+    protected $casts = [
+      'registered_at' => 'datetime'
+    ];
+
+    public function generateInvitationToken(): string
+    {
+        return substr(md5(rand(0, 9) . $this->email . time()), 0, 32);
     }
 
     public function getLink() {

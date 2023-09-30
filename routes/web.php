@@ -16,13 +16,10 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-  return 'PROCMIS';
-});
-
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/login',  'LoginController@show')->name('login.show');
+Route::post('/login', 'LoginController@login')->name('login.perform');
 Route::group(['middleware' => ['auth']], function () {
-
-
     Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     Route::get('add-to-log', 'HomeController@myTestAddToLog');
 });
@@ -49,10 +46,10 @@ Route::get('/user/{user}/edit', 'UserController@companyuseredit')->name('company
 Route::post('/user/{user}/update', 'UserController@update')->name('companyusers.update');
 Route::delete('/user/{user}/delete', 'UserController@destroy')->name('companyusers.destroy');
 
-Route::get('/login',  'LoginController@show')->name('login.show');
-Route::post('/login', 'LoginController@login')->name('login.perform');
 
-Route::get('register', 'RegisterController@showRegistrationForm')->name('register')->middleware('hasInvitation');
+
+Route::get('register', 'RegisterController@showRegistrationForm')->name('tenants.create')->middleware('hasInvitation');
+Route::post('register', 'RegisterController@register')->name('register')->middleware('hasInvitation');
 Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
 Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
 
@@ -61,9 +58,9 @@ Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy'
 Route::group([], function () {
     Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
     Route::post("companies/{company}/roles/sync", "CreateCompany@roleSync")->name("company.roles.sync");
-    Route::get('/invitations/invite', 'RegisterController@requestInvitation')->name('requestInvitation');
-    Route::post('invitations', 'InvitationsController@store')->name('storeInvitation');
-    Route::get('/invitations', 'InvitationsController@index')->name('showInvitations');
+    Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
+    Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
+    Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
 
     Route::get('users/activity', 'HomeController@logActivity');
     Route::get('/users', 'UserController@viewcompanyUser')->name('users.view');
@@ -81,12 +78,6 @@ Route::group([], function () {
     Route::get('/{roles}/rolesedit', 'RoleController@edit')->name('roles.edit');
     Route::get('/{roles}/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
     Route::post('/rolesupdate','RoleController@update')->name('roles.update');
-    Route::get('/permissions', 'PermissionsController@index')->name('permissions.index');
-    Route::get('/permissionscreate', 'PermissionsController@create')->name('permissions.create');
-    Route::get('/permissionsstore', 'PermissionsController@store')->name('permissions.store');
-    Route::get('/permissionsshow', 'PermissionsController@show')->name('permissions.show');
-    Route::get('/permissionsedit', 'PermissionsController@edit')->name('permissions.edit');
-    Route::get('/permissionsdestroy', 'PermissionsController@destroy')->name('permissions.destroy');
     Route::get('/create', 'UserController@create')->name('users.create');
     Route::post('/create', 'UserController@store')->name('users.store');
     Route::get('/{user}/show', 'UserController@show')->name('users.show');

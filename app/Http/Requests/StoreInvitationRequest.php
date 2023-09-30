@@ -24,11 +24,19 @@ class StoreInvitationRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:invitations'
+            'email' => 'required|email|unique:invitations',
+            'user_id' => 'nullable'
         ];
     }
 
-    /**
+    public function prepareForValidation()
+    {
+      return $this->merge([
+        'user_id' => $this->user()?->id
+      ]);
+    }
+
+  /**
      * Custom error messages.
      *
      * @return array

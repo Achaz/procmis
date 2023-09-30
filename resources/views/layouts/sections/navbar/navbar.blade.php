@@ -61,10 +61,10 @@ $navbarDetached = ($navbarDetached ?? '');
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">{{ $user = auth()->user()->name; }}</span>
-                      @foreach (auth()->user()->roles as $role)
-                        <small class="text-muted">{{$role->name}}</small>
-                      @endforeach                     
+{{--                      <span class="fw-semibold d-block">{{ $user = auth()->user()->name }}</span>--}}
+{{--                      @foreach (auth()->user()->roles as $role)--}}
+{{--                        <small class="text-muted">{{$role->name}}</small>--}}
+{{--                      @endforeach                     --}}
                     </div>
                   </div>
                 </a>
@@ -77,7 +77,7 @@ $navbarDetached = ($navbarDetached ?? '');
                   <i class="bx bx-user me-2"></i>
                   <span class="align-middle">My Profile</span>
                 </a>
-              </li>         
+              </li>
               <li>
                 <div class="dropdown-divider"></div>
               </li>

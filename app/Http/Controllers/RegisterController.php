@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
@@ -11,7 +12,7 @@ class RegisterController extends Controller
 {
     /**
      * Display register page.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -21,18 +22,25 @@ class RegisterController extends Controller
 
     /**
      * Handle account registration request
-     * 
+     *
      * @param RegisterRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function register(RegisterRequest $request) 
+    public function register(RegisterRequest $request)
     {
-        $user = User::create($request->validated());
-        $user->assignRole("company_admin");
-        //auth()->login($user);
+      $invitation = Invitation::where("invitation_token", $request->token)->first();
+      $details = $request->only(['token', 'name']);
+      $details['id'] = $request->username;
+      $details['email'] = $invitation->email;
 
-        return redirect('/register/request')->with('success', "Account successfully registered. Please <a class=\"btn btn-link\" href=\"{{ route('login.show') }}\">login</a>");
+      Tenant::create($details);
+
+      $invitation->delete();
+
+      return redirect()
+        ->route('tenants.dashboard', $details['id'])
+        ->with('success', 'Account successfully registered. Please wait as we prepare your account');
     }
 
     public function requestInvitation() {
@@ -41,10 +49,10 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(Request $request)
     {
-        $invitation_token = $request->get('invitation_token');
-        $invitation = Invitation::where('invitation_token', $invitation_token)->firstOrFail();
-
-        return view('auth.register', compact("invitation"));
+        return view('auth.register', [
+          'invitation' => Invitation::where('invitation_token', $request->invitation_token)
+            ->firstOrFail()
+        ]);
     }
 
     /**

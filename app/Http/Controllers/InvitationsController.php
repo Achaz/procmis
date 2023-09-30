@@ -17,25 +17,31 @@ class InvitationsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+
     }
 
     public function index(Request $request)
     {
-        $invitations = Invitation::where('registered_at', null)->whereUser_id($request->user()->id)->orderBy('created_at', 'desc')->get();
+        $invitations = Invitation::whereNull('registered_at')
+          ->orderBy('created_at', 'desc')
+          ->get();
+
         return view('invitations.index', compact('invitations'));
     }
 
-    public function store(StoreInvitationRequest $request)
+    public function create()
     {
-        $invitation = new Invitation($request->all());
-        if (Auth::check()) {
-            $invitation->user_id = $request->user()->id;
-        }
-        $invitation->generateInvitationToken();
+      return view('invitations.create');
+    }
+
+    public function store(StoreInvitationRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $details = $request->validated();
+        $invitation = new Invitation($details);
+        $invitation->invitation_token = $invitation->generateInvitationToken();
         $invitation->save();
 
-        return redirect()->route('requestInvitation')
+        return redirect()->route('invitations.index')
             ->with('success', 'Invitation to register successfully requested. Please wait for registration link.');
     }
 }

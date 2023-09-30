@@ -20,7 +20,7 @@ class HasInvitation
              * No token = Goodbye.
              */
             if (!$request->has('invitation_token')) {
-                return redirect(route('requestInvitation'));
+                return redirect(route('invitations.create'));
             }
 
             $invitation_token = $request->get('invitation_token');
@@ -32,7 +32,7 @@ class HasInvitation
             try {
                 $invitation = Invitation::where('invitation_token', $invitation_token)->firstOrFail();
             } catch (ModelNotFoundException $e) {
-                return redirect(route('requestInvitation'))
+                return redirect(route('invitations.create'))
                     ->with('error', 'Wrong invitation token! Please check your URL.');
             }
 
