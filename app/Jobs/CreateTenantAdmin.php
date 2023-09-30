@@ -37,6 +37,7 @@ class CreateTenantAdmin implements ShouldQueue
             'password' => Hash::make($this->tenant->password),
             'email' => $this->tenant->email,
             'email_verified_at' => $this->tenant->created_at,
+            'username' => $this->tenant->username
           ]);
 
           $adminUser->assignRole(UserRole::TenantAdmin->value);
