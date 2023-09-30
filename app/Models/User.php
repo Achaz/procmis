@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,6 +62,13 @@ class User extends Authenticatable
    public function users(): HasMany
    {
        return $this->hasMany(User::class);
+   }
+
+   public function assignedRoles(): Attribute
+   {
+     return Attribute::make(
+       get: fn () => implode(', ', $this->roles->pluck('name')->all())
+     );
    }
 
 }

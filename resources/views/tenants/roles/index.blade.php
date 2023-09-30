@@ -27,7 +27,6 @@
                   <td>{{ $role->name }}</td>
                   <td>
                     <div class="d-flex justify-content-end align-items-center gap-2">
-                      <a class="btn btn-info btn-sm" href="{{ route('tenants.roles.show', [tenant('id'), $role]) }}">Show</a>
                       <a class="btn btn-primary btn-sm" href="{{ route('tenants.roles.edit', [tenant('id'), $role]) }}">Edit</a>
                       <form action="{{ route('tenants.roles.destroy', [tenant('id'), $role]) }}" method="post">
                         @csrf

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -33,11 +34,11 @@ class PermissionAndRoleSeeder extends Seeder
         Permission::create(['name' => 'update supplier']);
         Permission::create(['name' => 'delete supplier']);
 
-        $superAdminRole = Role::create(['name' => 'super admin']);
+        $tenantAdminRole = Role::create(['name' => UserRole::TenantAdmin->value]);
 
-        $superAdminRole->givePermissionTo(Permission::pluck('name')->all());
+        $tenantAdminRole->givePermissionTo(Permission::pluck('name')->all());
 
-        $staffRole = Role::create(['name' => 'staff']);
+        $staffRole = Role::create(['name' => UserRole::Sales->value]);
         $staffRole->givePermissionTo([
           'view supplier',
         ]);

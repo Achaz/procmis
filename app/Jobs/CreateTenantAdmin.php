@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -38,7 +39,7 @@ class CreateTenantAdmin implements ShouldQueue
             'email_verified_at' => $this->tenant->created_at,
           ]);
 
-          // Assign Role using Spatie Permissions package
+          $adminUser->assignRole(UserRole::TenantAdmin->value);
         });
 
         // We no longer need this password on the Tenant model

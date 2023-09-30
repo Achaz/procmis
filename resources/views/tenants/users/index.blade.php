@@ -30,7 +30,7 @@
                               <td>{{ $user->name }}</td>
                               <td>{{ $user->email }}</td>
                               <td>{{ $user->username }}</td>
-                              <td></td>
+                              <td>{{ $user->assigned_roles }}</td>
                               <td>
                                 <div class="d-flex align-items-center justify-content-end gap-2">
                                   <a href="{{ route('tenants.users.show', [tenant('id'), $user->id]) }}"
