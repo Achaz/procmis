@@ -1,18 +1,6 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts.usercontentNavbarLayout')
 
 @section('title', 'Roles')
-
-@section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
 
 @section('content')
 <div class="row">
@@ -28,21 +16,19 @@
 
                     <table class="table table-striped">
                         <thead>
-                            <th scope="col" width="20%">Name</th>
-                            <th scope="col" width="1%">Guard</th>
+                            <th>Name</th>
                         </thead>
 
-                        @foreach ($rolePermissions as $permission)
+                        @foreach ($role->permissions as $permission)
                             <tr>
                                 <td>{{ $permission->name }}</td>
-                                <td>{{ $permission->guard_name }}</td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
                 <div class="mt-4">
-                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Edit</a>
-                    <a href="{{ route('roles.index') }}" class="btn btn-dark">Back</a>
+                    <a href="{{ route('tenants.roles.edit', [tenant('id'), $role]) }}" class="btn btn-info">Edit</a>
+                    <a href="{{ route('tenants.roles.index', tenant('id')) }}" class="btn btn-dark">Back</a>
                 </div>
             </div>
         </div>

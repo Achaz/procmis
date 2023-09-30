@@ -18,7 +18,7 @@
             "slug": "View Users"
           },
           {
-            "url": "/roles",
+            "route": "tenants.roles.index",
             "name": "Roles",
             "slug": "Roles"
           }

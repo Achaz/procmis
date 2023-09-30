@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/",
+      "route": "central.dashboard",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "dashboard-analytics"
@@ -12,12 +12,12 @@
       "slug": "layouts",
       "submenu": [
         {
-          "url": "/invitations/create",
+          "route": "invitations.create",
           "name": "Invite",
           "slug": "invite"
         },
-                {
-          "url": "/invitations",
+        {
+          "route": "invitations.index",
           "name": "Invitations",
           "slug": "Invitations"
         }

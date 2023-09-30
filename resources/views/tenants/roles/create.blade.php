@@ -1,18 +1,6 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts.usercontentNavbarLayout')
 
 @section('title', 'Roles')
-
-@section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
 
 @section('content')
 <div class="row">
@@ -36,46 +24,47 @@
                   </div>
               @endif
               <div class="container mt-4">
-                  <form method="POST" action="{{ route('roles.store') }}">
+                  <form method="POST" action="{{ route('tenants.roles.store', tenant('id')) }}">
                       @csrf
                       <div class="mb-3">
                           <label for="name" class="form-label">Name</label>
-                          <input value="{{ old('name') }}" 
-                              type="text" 
-                              class="form-control" 
-                              name="name" 
+                          <input value="{{ old('name') }}"
+                              type="text"
+                              class="form-control"
+                              name="name"
                               placeholder="Name" required>
                       </div>
-                      
+
                       <label for="permissions" class="form-label">Assign Permissions</label>
                       <div class="mb-3">
                       <table class="table table-striped">
                           <thead>
-                              <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                              <th scope="col" width="20%">Name</th>
-                              <th scope="col" width="1%">Guard</th> 
+                              <tr>
+                                <th scope="col">Name</th>
+                              </tr>
                           </thead>
 
                           @foreach($permissions as $permission)
                               <tr>
                                   <td>
-                                      <input type="checkbox" 
-                                      name="permission[{{ $permission->name }}]"
-                                      value="{{ $permission->name }}"
-                                      class='permission'>
+                                    <label>
+                                      <input type="checkbox"
+                                             name="permission[{{ $permission->name }}]"
+                                             value="{{ $permission->name }}"
+                                             class='permission'>
+                                      {{ $permission->name }}
+                                    </label>
                                   </td>
-                                  <td>{{ $permission->name }}</td>
-                                  <td>{{ $permission->guard_name }}</td>
                               </tr>
                           @endforeach
                       </table>
                       </div>
                       <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Add Role</button>
-                        <a href="{{ route('roles.index') }}" class="btn btn-dark">Back</a>
+                        <a href="{{ route('tenants.roles.index', tenant('id')) }}" class="btn btn-dark">Back</a>
                       </div>
                     </form>
-                </div>           
+                </div>
             </div>
          </div>
       </div>

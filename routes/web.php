@@ -16,7 +16,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('central.dashboard');
 Route::get('/login',  'LoginController@show')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login.perform');
 Route::group(['middleware' => ['auth']], function () {
@@ -41,18 +41,10 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 //Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
 Route::get('/user', 'GeneralUserController@index')->name('user');
 
-Route::get('/user/{user}/show', 'UserController@companyusersshow')->name('companyusers.show');
-Route::get('/user/{user}/edit', 'UserController@companyuseredit')->name('companyusers.edit');
-Route::post('/user/{user}/update', 'UserController@update')->name('companyusers.update');
-Route::delete('/user/{user}/delete', 'UserController@destroy')->name('companyusers.destroy');
-
-
-
 Route::get('register', 'RegisterController@showRegistrationForm')->name('tenants.create')->middleware('hasInvitation');
 Route::post('register', 'RegisterController@register')->name('register')->middleware('hasInvitation');
 Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
 Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
-
 
 ///company manage users
 Route::group([], function () {
@@ -66,16 +58,5 @@ Route::group([], function () {
     Route::get('/companies', 'CreateCompany@show')->name('company.show');
     Route::post('/companies', 'CreateCompany@store')->name('company.store');
     Route::get('companies/{company}/users', 'CreateCompany@manageUser')->name('company.user.manage');
-
-    Route::get('/roles', 'RoleController@index')->name('roles.index');
-    Route::get('/rolescreate', 'RoleController@create')->name('roles.create');
-    Route::get('/rolesstore', 'RoleController@store')->name('roles.store');
-    Route::get('/{roles}/rolesshow', 'RoleController@show')->name('roles.show');
-    Route::get('/{roles}/rolesedit', 'RoleController@edit')->name('roles.edit');
-    Route::get('/{roles}/rolesdestroy', 'RoleController@destroy')->name('roles.destroy');
-    Route::post('/rolesupdate','RoleController@update')->name('roles.update');
-
-    Route::get('/registercompanyuser', 'UserController@CreateCompanyUser')->name('company.createuser');
-    Route::post('/companyuser', 'UserController@companyUser')->name('users.company');
 });
 
