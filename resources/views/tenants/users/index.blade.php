@@ -38,7 +38,7 @@
                                   <a href="{{ route('tenants.users.edit', [tenant('id'), $user->id]) }}"
                                      class="btn btn-info btn-sm">Edit</a>
                                   @if(tenant('email') !== $user->email)
-                                    <form action="{{ route('tenants.users.destroy', [tenant('id'), $user->id]) }}">
+                                    <form action="{{ route('tenants.users.destroy', [tenant('id'), $user->id]) }}" method="post">
                                       @csrf
                                       @method('delete')
                                       <button type="submit" class="btn btn-danger btn-sm">Delete</button>

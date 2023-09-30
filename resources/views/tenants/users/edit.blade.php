@@ -1,18 +1,6 @@
 @extends('layouts.contentNavbarLayout')
 
-@section('title', 'Users')
-
-@section('vendor-style')
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-    <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
+@section('title', 'Users Update')
 
 @section('content')
     <div class="row">
@@ -33,8 +21,9 @@
                                     </div>
                                 @endif
                             </div>
-                            <form method="post" action="{{ route('users.update', $user->id) }}">
+                            <form method="post" action="{{ route('tenants.users.update', [tenant('id'), $user]) }}">
                                 @csrf
+                                @method('put')
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input value="{{ $user->name }}" type="text" class="form-control" name="name"
@@ -63,7 +52,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="role" class="form-label">Role</label>
-                                    <select class="form-control" name="roles" required>
+                                    <select id="role" class="form-control" name="roles">
                                         <option value="">Select role</option>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}"
@@ -76,7 +65,7 @@
                                     @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update user</button>
-                                <a href="{{ route('users.index') }}" class="btn btn-dark">Cancel</a>
+                                <a href="{{ route('tenants.users.index', tenant('id')) }}" class="btn btn-dark">Cancel</a>
                             </form>
                         </div>
                     </div>

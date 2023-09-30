@@ -5,15 +5,19 @@ namespace App\Http\Controllers\Tenants;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('tenants.users.index', [
           'users' => User::paginate(10)
@@ -49,124 +53,75 @@ class UsersController extends Controller
 
     $record['password'] = Hash::make($request->password);
 
-    $user = User::create($record);
-
+    User::create($record);
 
     return redirect()->route('tenants.users.index', tenant('id'))
       ->with('success', 'Account created successfully.');
   }
 
-  public function companyUser(Request $request)
-  {
-    $this->validate($request, [
-      'name' => 'required|string|max:250',
-      'email' => 'required|email|max:250|unique:users',
-      'username' => 'required|string|max:250'
-    ]);
-
-    $input = $request->all();
-
-    $input['user_id'] = $request->user()->id;
-
-    $user = User::create($input);
-
-    $user->assignRole($request->input('roles'));
-
-    return redirect()->route('company.createuser')
-      ->with('success', 'Company User created successfully');
-  }
-
-  public function viewcompanyUser(Request $request)
-  {
-    $users = User::whereUser_id($request->user()->id)->latest()->paginate(10);
-
-    return view('company.index', compact('users'));
-  }
-
-  public function CreateCompanyUser(Request $request)
-  {
-    $user_id = User::get(['id']);
-    return view('company.createuser', compact('user_id'));
-  }
-
-  public function companyusersshow($id)
-  {
-    $user = User::find($id);
-    return view('company.show', compact('user'));
-  }
-  public function companyuseredit($id)
-  {
-    $user = User::find($id);
-    $roles = Role::get(['id', 'name']);
-    $userRole = $user->roles->pluck('name')->toArray();
-
-    return view('company.edit', compact('user', 'roles', 'userRole'));
-  }
   /**
    * Display the specified resource.
    *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @param User $user
+   * @return View
    */
-  public function show($id)
+  public function show(User $user): View
   {
-    $user = User::find($id);
-    return view('users.show', compact('user'));
+    return view('tenants.users.show', compact('user'));
   }
 
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @param User $user
+   * @return View
    */
-  public function edit($id)
+  public function edit(User $user): View
   {
-    $user = User::find($id);
     $roles = Role::get(['id', 'name']);
     $userRole = $user->roles->pluck('name')->toArray();
 
-    return view('users.edit', compact('user', 'roles', 'userRole'));
+    return view('tenants.users.edit', compact('user', 'roles', 'userRole'));
   }
 
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @param Request $request
+   * @param User $user
+   * @return RedirectResponse
    */
-  public function update(Request $request, $id)
+  public function update(Request $request, User $user): RedirectResponse
   {
-    $this->validate($request, [
+    $request->validate([
       'name' => 'required',
-      'email' => 'required|email|unique:users,email,' . $id,
-      'password' => 'same:confirm-password',
-      'roles' => 'required'
+      'email' => [
+        'required',
+        Rule::unique('users', 'email')->ignore($user->id)
+      ],
+      'roles' => 'nullable|array'
     ]);
 
-    $input = $request->all();
+    $input = $request->only(['name', 'email', 'username']);
 
-    $user = User::find($id);
     $user->update($input);
-    FacadesDB::table('model_has_roles')->where('model_id', $id)->delete();
+    $user->syncRoles($request->roles);
 
-    $user->assignRole($request->input('roles'));
-
-    return redirect()->route('users.index')
+    return redirect()->route('tenants.users.index', tenant('id'))
       ->with('success', 'User updated successfully');
   }
 
   /**
    * Remove the specified resource from storage.
    *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @param User $user
+   * @return RedirectResponse
    */
-  public function destroy($id)
+  public function destroy(User $user): \Illuminate\Http\RedirectResponse
   {
-    User::find($id)->delete();
-    return redirect()->route('users.index')
+    $user->delete();
+
+    return redirect()->route('tenants.users.index', tenant('id'))
       ->with('success', 'User deleted successfully');
   }
 }
