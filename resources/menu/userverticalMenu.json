@@ -2,37 +2,17 @@
     "menu": [
      {
         "url": "/user",
+        "route": "tenants.dashboard",
         "name": "Dashboard",
         "icon": "menu-icon tf-icons bx bx-home-circle",
         "slug": "dashboard-analytics"
       },
       {
-        "name": "Home",
-        "icon": "menu-icon tf-icons bx bx-cog",
-        "slug": "layouts",
-        "submenu": [
-          {
-            "url": "/createCompany",
-            "name": "Create Company",
-            "slug": "Create Company"
-          },
-          {
-            "url": "/viewCompany",
-            "name": "View Company",
-            "slug": "View Company"
-          },
-          {
-            "url": "/registercompanyuser",
-            "name": "Register User",
-            "slug": "Register User"
-          },
-          {
-            "url": "/viewcompanyuser",
-            "name": "View Users",
-            "slug": "View Users"
-          }
-        ]
-      }    
-      
+        "url": "",
+        "route": "tenants.users.index",
+        "name": "Users",
+        "icon": "menu-icon tf-icons bx bx-user-circle",
+        "slug": "users"
+      }
     ]
   }

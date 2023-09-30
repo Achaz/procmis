@@ -17,7 +17,7 @@
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo"><img src={{asset("assets/img/logo.svg")}}></span>
+              <span class="app-brand-logo demo"><img src={{global_asset("assets/img/logo.svg")}}></span>
               <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
             </a>
           </div>
@@ -26,7 +26,7 @@
           <p class="mb-4">Please sign-in to your account</p>
 
           <form id="formAuthentication" class="mb-3" action="{{ route('login.perform') }}" method="post">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />  
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <div class="mb-3">
               <label for="email" class="form-label">Username</label>
               <input type="text" class="form-control" id="email" name="username" placeholder="Enter your username" autofocus>

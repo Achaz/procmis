@@ -24,7 +24,6 @@ Route::prefix('/{tenant}')
   ])
   ->name('tenants.')
   ->group(function () {
-    Route::get('/', function () {
-        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-    })->name('dashboard');
+    Route::get('/', '\App\Http\Controllers\Tenants\DashboardController')->name('dashboard');
+    Route::resource('users', \App\Http\Controllers\Tenants\UsersController::class);
 });

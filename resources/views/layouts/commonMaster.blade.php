@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 
-<html class="light-style layout-menu-fixed" data-theme="theme-default" data-assets-path="{{ asset('/assets') . '/' }}" data-base-url="{{url('/')}}" data-framework="laravel" data-template="vertical-menu-laravel-template-free">
+<html
+  class="light-style layout-menu-fixed"
+  data-theme="theme-default"
+  data-assets-path="{{ global_asset('/assets') . '/' }}"
+  data-base-url="{{url('/')}}"
+  data-framework="laravel"
+  data-template="vertical-menu-laravel-template-free">
 
 <head>
   <meta charset="utf-8" />
@@ -12,7 +18,7 @@
   <!-- Canonical SEO -->
   <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
   <!-- Favicon -->
-  <link href="{{ URL::asset('assets/images/favicon.png')}}" rel="icon">
+  <link href="{{ global_asset('assets/images/favicon.png')}}" rel="icon">
   <!-- Include Styles -->
   @include('layouts/sections/styles')
 
@@ -25,7 +31,7 @@
   @yield('layoutContent')
   <!--/ Layout Content -->
 
-  
+
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
 
