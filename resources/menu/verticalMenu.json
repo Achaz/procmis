@@ -12,7 +12,7 @@
       "slug": "layouts",
       "submenu": [
         {
-          "url": "/invitations/invite",
+          "url": "/invitations/create",
           "name": "Invite",
           "slug": "invite"
         },
@@ -20,12 +20,6 @@
           "url": "/invitations",
           "name": "Invitations",
           "slug": "Invitations"
-        },
-        
-        {
-          "url": "/users/activity",
-          "name": "User Activity",
-          "slug": "User Activity"
         },
         {
           "url": "/users",
@@ -68,7 +62,7 @@
         }
       ]
     }
-         
-    
+
+
   ]
 }

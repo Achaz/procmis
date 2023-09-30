@@ -18,31 +18,19 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('organisationName')->nullable();
-            $table->string('procurementCategory')->nullable();
-            $table->text('briefDescription')->nullable();
-            $table->string('companyPhoneNumber')->nullable();
+            $table->string('name')->nullable();
+            $table->string('category')->nullable();
+            $table->text('description')->nullable();
+            $table->string('phone')->nullable();
             $table->string('country')->nullable();
-            $table->string('registrationNumber')->nullable();
-            $table->string('taxId')->nullable();
+            $table->string('registration_number')->nullable();
+            $table->string('tax_identification_number')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('region')->nullable();
             $table->string('zip_code')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('company_supplier', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Company::class);
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Supply::class);
-            $table->json('meta')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
-        
-
     }
 
     /**

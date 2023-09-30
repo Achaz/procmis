@@ -24,9 +24,12 @@ class UserMenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $verticalMenuJson = file_get_contents(base_path('resources/menu/userverticalMenu.json'));
-        $verticalMenuData = json_decode($verticalMenuJson);
-        View::share('menuData2',[$verticalMenuData]);
+        $verticalMenuData = json_decode(
+          file_get_contents(
+            base_path('resources/menu/userverticalMenu.json')
+          )
+        );
 
+        View::share('menuData2', [$verticalMenuData]);
     }
 }

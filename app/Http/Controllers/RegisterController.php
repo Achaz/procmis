@@ -30,7 +30,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
       $invitation = Invitation::where("invitation_token", $request->token)->first();
-      $details = $request->only(['token', 'name']);
+      $details = $request->only(['token', 'name', 'password']);
       $details['id'] = $request->username;
       $details['email'] = $invitation->email;
 
