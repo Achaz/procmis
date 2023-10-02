@@ -10,6 +10,10 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 {
   use HasDatabase, HasDomains;
 
+  protected $casts = [
+    'active' => 'boolean'
+  ];
+
   public static function getCustomColumns(): array
   {
     return [

@@ -26,7 +26,11 @@ Route::name('central.')
     Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
     Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
     Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
-
+    Route::post('accounts/{account}/deactivate', '\App\Http\Controllers\DeactivateAccount')
+      ->name('accounts.deactivate');
+    Route::post('accounts/{account}/activate', '\App\Http\Controllers\ActivateAccount')
+      ->name('accounts.activate');
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     // Auth
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
       ->name('logout');

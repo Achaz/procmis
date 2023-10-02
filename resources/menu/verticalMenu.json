@@ -12,6 +12,11 @@
       "slug": "layouts",
       "submenu": [
         {
+          "route": "central.accounts.index",
+          "name": "View Accounts",
+          "slug": "View Accounts"
+        },
+        {
           "route": "central.invitations.create",
           "name": "Invite",
           "slug": "invite"

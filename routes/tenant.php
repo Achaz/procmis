@@ -21,6 +21,7 @@ Route::prefix('/account/{tenant}')
   ->middleware([
       'web',
       InitializeTenancyByPath::class,
+      \App\Http\Middleware\ActiveTenant::class
   ])
   ->name('tenants.')
   ->group(function () {
