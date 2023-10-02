@@ -61,7 +61,7 @@ $navbarDetached = ($navbarDetached ?? '');
                       </div>
                     </div>
                     <div class="flex-grow-1">
-{{--                      <span class="fw-semibold d-block">{{ $user = auth()->user()->name }}</span>--}}
+                     <span class="fw-semibold d-block">{{ $user = auth()->user()->name }}</span>
 {{--                      @foreach (auth()->user()->roles as $role)--}}
 {{--                        <small class="text-muted">{{$role->name}}</small>--}}
 {{--                      @endforeach                     --}}
