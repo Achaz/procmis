@@ -16,6 +16,9 @@ class PermissionAndRoleSeeder extends Seeder
      */
     public function run()
     {
+        // Dashboard
+        Permission::create(['name' => 'view dashboard']);
+
         // Manage Roles
         Permission::create(['name' => 'create role']);
         Permission::create(['name' => 'view role']);

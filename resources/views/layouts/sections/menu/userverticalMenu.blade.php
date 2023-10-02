@@ -55,7 +55,7 @@
     }
     @endphp
 
-    {{-- main menu --}}
+    @can($menu->role)
     <li class="menu-item {{$activeClass}}">
       <a href="{{ isset($menu->route) ? route($menu->route, $tenantId) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
         @isset($menu->icon)
@@ -69,6 +69,7 @@
       @include('layouts.sections.menu.submenu',['menu' => $menu->submenu])
       @endisset
     </li>
+    @endcan
     @endif
     @endforeach
   </ul>

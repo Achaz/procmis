@@ -5,24 +5,34 @@
         "route": "tenants.dashboard",
         "name": "Dashboard",
         "icon": "menu-icon tf-icons bx bx-home-circle",
-        "slug": "dashboard-analytics"
+        "slug": "dashboard-analytics",
+        "role": "view dashboard"
       },
       {
         "name": "Users",
         "icon": "menu-icon tf-icons bx bx-group",
         "slug": "layouts",
+        "role": "view user",
         "submenu": [
           {
             "route": "tenants.users.index",
             "name": "View Users",
-            "slug": "View Users"
+            "slug": "View Users",
+            "role": "view user"
           },
           {
             "route": "tenants.roles.index",
             "name": "Roles",
-            "slug": "Roles"
+            "slug": "Roles",
+            "role": "view role"
           }
         ]
+      },
+      {
+        "name": "Suppliers",
+        "icon": "menu-icon tf-icons bx bx-group",
+        "slug": "layouts",
+        "role": "view supplier"
       }
     ]
   }

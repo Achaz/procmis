@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,7 +27,8 @@ class User extends Authenticatable
         'email',
         'password',
         'user_id',
-        'email_verified_at'
+        'email_verified_at',
+        'type'
     ];
 
     /**
@@ -70,6 +72,11 @@ class User extends Authenticatable
      return Attribute::make(
        get: fn () => implode(', ', $this->roles->pluck('name')->all())
      );
+   }
+
+   public function isTenantAdmin(): bool
+   {
+     return $this->hasRole(UserRole::TenantAdmin->value);
    }
 
 }

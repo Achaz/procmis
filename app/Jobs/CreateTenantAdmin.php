@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Enums\UserRole;
+use App\Enums\UserType;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -37,7 +38,8 @@ class CreateTenantAdmin implements ShouldQueue
             'password' => Hash::make($this->tenant->password),
             'email' => $this->tenant->email,
             'email_verified_at' => $this->tenant->created_at,
-            'username' => $this->tenant->username
+            'username' => $this->tenant->username,
+            'type' => UserType::Tenant->value
           ]);
 
           $adminUser->assignRole(UserRole::TenantAdmin->value);

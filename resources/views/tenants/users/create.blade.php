@@ -44,10 +44,15 @@
                     <span class="text-danger">{{ $errors->first('password') }}</span>
                 @endif
             </div>
-            <div class="mt-3">
-                <label class="form-label" for="password_confirmation">Confirm Password</label>
-                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-            </div>
+              <div class="mt-3">
+                <label class="form-label">Select User Type</label>
+                @foreach($userTypes as $userType)
+                  <label class="d-block mt-2 d-flex gap-2">
+                    <input type="radio" name="type" value="{{ $userType }}" @checked(old('type'))>
+                    <span>{{ $userType }}</span>
+                  </label>
+                @endforeach
+              </div>
             <div class="mt-3">
                 <input type="submit" class="btn btn-primary" value="Register">
             </div>
