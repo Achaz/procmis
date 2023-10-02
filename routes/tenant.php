@@ -26,9 +26,6 @@ Route::prefix('/account/{tenant}')
   ->name('tenants.')
   ->group(function () {
 
-//    Route::get('/login',  [\App\Http\Controllers\LoginController::class, 'show'])->name('login.show');
-//    Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login.perform');
-
     Route::middleware(['auth'])->group(function () {
       Route::get('/', '\App\Http\Controllers\Tenants\DashboardController')->name('dashboard');
       Route::resource('/users', \App\Http\Controllers\Tenants\UsersController::class);
