@@ -66,6 +66,7 @@ class CreateCompany extends Controller
             DB::rollBack();
             throw $th;
         }
+        
         return redirect('/companies')->with('success', "Company successfully registered");
     }
 
@@ -75,6 +76,7 @@ class CreateCompany extends Controller
 
         return view('company.view', compact('companies'));
     }
+
     public function manageUser(Request $request, $id)
     {
 
@@ -125,16 +127,7 @@ class CreateCompany extends Controller
         }
         // Assign the roles to the user
         $user->syncRoles($input['role_ids']);
-        // Find the company that the user belongs to and update the status
-        // $company->users()->syncWithPivotValues($userId, ['status' => $input['role_ids']]);
-        // DB::table('company_users')
-        //     ->where('company_id', $company->id)
-        //     ->where('user_id', $userId)
-        //     ->update([
-        //         'company_id' => $company->id, 
-        //         'user_id' => $userId, 'status' => $input['role_id']
-        //     ]);
-        //dd($user);
+        
         return redirect()->back()->with(["status" => "Succussful sync"]);
     }
 }
