@@ -8,8 +8,8 @@
   <div class="col-16 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h2>Procurement Companies</h2>
-        <a href="{{ route('central.invitations.create') }}" class="btn btn-info">Invite a Company</a>
+        <h2>Accounts</h2>
+        <a href="{{ route('central.invitations.create') }}" class="btn btn-info">Invite User</a>
       </div>
       <div class="card-body">
         <table class="table table-borderless table-striped">

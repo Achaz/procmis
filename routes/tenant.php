@@ -17,7 +17,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 |
 */
 
-Route::prefix('/{tenant}')
+Route::prefix('/account/{tenant}')
   ->middleware([
       'web',
       InitializeTenancyByPath::class,

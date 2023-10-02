@@ -7,7 +7,7 @@
       "slug": "dashboard-analytics"
     },
     {
-      "name": "Users",
+      "name": "Accounts",
       "icon": "menu-icon tf-icons bx bx-group",
       "slug": "layouts",
       "submenu": [
