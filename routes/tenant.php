@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenants\CompanyProfileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
@@ -30,6 +31,7 @@ Route::prefix('/account/{tenant}')
       Route::get('/', '\App\Http\Controllers\Tenants\DashboardController')->name('dashboard');
       Route::resource('/users', \App\Http\Controllers\Tenants\UsersController::class);
       Route::resource('/roles', \App\Http\Controllers\Tenants\RoleController::class);
+      Route::resource('/profile', CompanyProfileController::class);
     });
 
     require __DIR__ . '/auth.php';

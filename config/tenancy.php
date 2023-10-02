@@ -18,8 +18,7 @@ return [
      */
     'central_domains' => [
         'localhost',
-        'procmis.test',
-        'procmis.qed.co.ug'
+
     ],
 
     /**

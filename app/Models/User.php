@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -52,9 +53,9 @@ class User extends Authenticatable
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
     */
-   public function companies(): BelongsToMany
+   public function company(): HasOne
    {
-       return $this->belongsToMany(Company::class,"company_users", 'user_id', 'company_id')->withPivot('status');
+       return $this->hasOne(Company::class);
    }
 
    /**

@@ -23,6 +23,7 @@ Route::name('central.')
   ->middleware(['auth'])
   ->group(function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+   
     Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
     Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
     Route::post('invitations', 'InvitationsController@store')->name('invitations.store');

@@ -1,18 +1,7 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/usercontentNavbarLayout')
 
 @section('title', 'Create Company')
 
-@section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
 
 @section('content')
 <div class="row">
@@ -32,7 +21,7 @@
                 <p>{{ session('success') }}</p>
             </div>
             @endif
-            <form class="my-4" method="POST" action="{{ route('company.store') }}">
+            <form class="my-4" method="POST" action="{{ route('tenants.profile.store', tenant('id')) }}">
             @csrf
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">

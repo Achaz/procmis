@@ -31,6 +31,7 @@
                               <td>{{ $account->active ? 'Yes' : 'No' }}</td>
                               <td>
                                 <div class="d-flex align-items-center justify-content-end gap-2">
+                                  <a href="{{ route('central.accounts.show', $account) }}"  class="btn btn-success btn-sm">Show Profile</a>
                                   @if($account->active)
                                   <form action="{{ route('central.accounts.deactivate', $account) }}" method="post">
                                     @csrf

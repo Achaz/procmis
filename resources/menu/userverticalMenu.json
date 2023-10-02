@@ -33,6 +33,13 @@
         "icon": "menu-icon tf-icons bx bx-group",
         "slug": "layouts",
         "role": "view supplier"
+      },
+      {
+        "route": "tenants.profile.index",
+        "name": "Company Profile",
+        "icon": "menu-icon tf-icons bx bx-building",
+        "slug": "layouts",
+        "role": "update company profile"
       }
     ]
   }

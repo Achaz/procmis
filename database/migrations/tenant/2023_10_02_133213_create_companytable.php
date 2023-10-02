@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Company;
-use App\Models\Supply;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,16 +16,17 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('category')->nullable();
-            $table->text('description')->nullable();
-            $table->string('phone')->nullable();
+            $table->foreignIdFor(User::class);
+            $table->string('organisationName')->nullable();
+            $table->string('procurementCategory')->nullable();
+            $table->text('briefDescription')->nullable();
+            $table->string('companyPhoneNumber')->nullable();
             $table->string('country')->nullable();
-            $table->string('registration_number')->nullable();
-            $table->string('tax_identification_number')->nullable();
+            $table->string('registrationNumber')->nullable();
+            $table->string('taxId')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
-            $table->string('region')->nullable();
+            $table->string('region')->nullable();        
             $table->string('zip_code')->nullable();
             $table->timestamps();
         });

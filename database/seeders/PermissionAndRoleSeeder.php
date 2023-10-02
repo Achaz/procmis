@@ -31,6 +31,8 @@ class PermissionAndRoleSeeder extends Seeder
         Permission::create(['name' => 'update user']);
         Permission::create(['name' => 'delete user']);
 
+        Permission::create(['name' => 'update company profile']);
+
         // Manage Suppliers
         Permission::create(['name' => 'create supplier']);
         Permission::create(['name' => 'view supplier']);
