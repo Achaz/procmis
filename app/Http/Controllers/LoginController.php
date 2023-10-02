@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -20,72 +23,37 @@ class LoginController extends Controller
 
     /**
      * Display login page.
-     * 
-     * @return Renderable
+     *
      */
-    public function show()
+    public function show(): View
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle account login request
-     * 
-     * @param LoginRequest $request
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function login(LoginRequest $request)
+  /**
+   * Handle account login request
+   *
+   * @param LoginRequest $request
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+    public function login(LoginRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)):
-            return redirect()->to('login')
-                ->withErrors(trans('auth.failed'));
-        endif;
+        if (!Auth::attempt($request->only('email', 'password'))) {
 
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
-
-        Auth::login($user, $request->get('remember'));
-
-        if($request->get('remember')):
-            $this->setRememberMeExpiration($user);
-        endif;
-
-        return $this->authenticated($request, $user);
-    }
-
-    /**
-     * Handle response after user authenticated
-     * 
-     * @param Request $request
-     * @param Auth $user
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    protected function authenticated(Request $request, $user) 
-    {
-        //return redirect()->intended();
-
-        //Auth::user()->hasRole('')
-        switch(Auth::user()->role){
-
-            case 1:                
-                return redirect('/superadmin');               
-                break;
-
-            case 2:               
-                return redirect('/admin');     
-                break;
-         
-            case 3:               
-                return redirect('/user');             
-                break;
-
-            default:              
-                return redirect('/login');
-                
+          return redirect()
+            ->route('tenants.login.show', tenant('id'))
+            ->withErrors(trans('auth.failed'));
         }
+
+        $request->session()->regenerate();
+
+        if($request->get('remember')) {
+          $this->setRememberMeExpiration($request->user());
+        }
+
+        return redirect()->route('tenants.dashboard', tenant('id'));
     }
 
 }

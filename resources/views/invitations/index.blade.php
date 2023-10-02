@@ -2,18 +2,6 @@
 
 @section('title', 'Invitations')
 
-@section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
-
 @section('content')
 <div class="row">
   <div class="col-16 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
@@ -47,7 +35,7 @@
                 @else
                     <p>No invitation requests!</p>
                 @endif
-            </div>      
+            </div>
         </div>
       </div>
     </div>

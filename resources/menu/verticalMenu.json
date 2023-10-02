@@ -12,12 +12,12 @@
       "slug": "layouts",
       "submenu": [
         {
-          "route": "invitations.create",
+          "route": "central.invitations.create",
           "name": "Invite",
           "slug": "invite"
         },
         {
-          "route": "invitations.index",
+          "route": "central.invitations.index",
           "name": "Invitations",
           "slug": "Invitations"
         }

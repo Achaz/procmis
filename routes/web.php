@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\CreateCompany;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
-
-use Illuminate\Support\Facades\Auth;
-use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +13,24 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('central.dashboard');
-Route::get('/login',  'LoginController@show')->name('login.show');
-Route::post('/login', 'LoginController@login')->name('login.perform');
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
-    Route::get('add-to-log', 'HomeController@myTestAddToLog');
-});
+
+Route::get('login', [AuthenticatedSessionController::class, 'create'])
+  ->name('central.login');
+
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+Route::name('central.')
+  ->middleware(['auth'])
+  ->group(function () {
+    Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
+    Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
+    Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
+
+    // Auth
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+      ->name('logout');
+  });
 
 
 /**
@@ -41,8 +49,12 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 //Route::get('/superadmin', 'SuperAdminController@index')->name('superadmin')->middleware('superadmin');
 Route::get('/user', 'GeneralUserController@index')->name('user');
 
-Route::get('register', 'RegisterController@showRegistrationForm')->name('tenants.create')->middleware('hasInvitation');
-Route::post('register', 'RegisterController@register')->name('register')->middleware('hasInvitation');
+Route::get('register', 'RegisterController@showRegistrationForm')
+  ->name('tenants.create')
+  ->middleware('hasInvitation');
+Route::post('register', 'RegisterController@register')
+  ->name('register')
+  ->middleware('hasInvitation');
 Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
 Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
 
@@ -50,9 +62,7 @@ Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy'
 Route::group([], function () {
     Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
     Route::post("companies/{company}/roles/sync", "CreateCompany@roleSync")->name("company.roles.sync");
-    Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
-    Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
-    Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
+
 
     Route::get('/companies/create', 'CreateCompany@index')->name('company.create');
     Route::get('/companies', 'CreateCompany@show')->name('company.show');

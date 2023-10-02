@@ -1,10 +1,10 @@
-@extends('layouts/blankLayout')
+@extends('layouts.blankLayout')
 
 @section('title', 'Login')
 
 @section('page-style')
 <!-- Page -->
-<link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}">
+<link rel="stylesheet" href="{{global_asset('assets/vendor/css/pages/page-auth.css')}}">
 @endsection
 
 @section('content')
@@ -25,11 +25,11 @@
           <h4 class="mb-2">Welcome to QED Procurement</h4>
           <p class="mb-4">Please sign-in to your account</p>
 
-          <form id="formAuthentication" class="mb-3" action="{{ route('login.perform') }}" method="post">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+          <form id="formAuthentication" class="mb-3" action="{{ route('central.login') }}" method="post">
+            @csrf
             <div class="mb-3">
               <label for="email" class="form-label">Username</label>
-              <input type="text" class="form-control" id="email" name="username" placeholder="Enter your username" autofocus>
+              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your username" autofocus>
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -60,6 +60,5 @@
     </div>
     <!-- /Register -->
   </div>
-</div>
 </div>
 @endsection

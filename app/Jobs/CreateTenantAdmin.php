@@ -17,7 +17,7 @@ class CreateTenantAdmin implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $tenant;
+    protected TenantWithDatabase $tenant;
 
     public function __construct(TenantWithDatabase $tenant)
     {

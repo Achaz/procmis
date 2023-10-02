@@ -41,7 +41,7 @@ class InvitationsController extends Controller
         $invitation->invitation_token = $invitation->generateInvitationToken();
         $invitation->save();
 
-        return redirect()->route('invitations.index')
+        return redirect()->route('central.invitations.index')
             ->with('success', 'Invitation to register successfully requested. Please wait for registration link.');
     }
 }

@@ -3,18 +3,6 @@
 
 @section('title', 'Invite User')
 
-@section('vendor-style')
-  <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-  <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-  <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
-
 @section('content')
   <div class="row">
     <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
@@ -34,7 +22,7 @@
                     <p>{{ session('success') }}</p>
                   </div>
                 @endif
-                <form class="mb-3" method="POST" action="{{ route('invitations.store') }}">
+                <form class="mb-3" method="POST" action="{{ route('central.invitations.store') }}">
                   @csrf
                   <div class="mb-3 {{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email" class="mb-3 control-label">E-Mail Address</label>

@@ -2,18 +2,6 @@
 
 @section('title', 'Dashboard')
 
-@section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
-@endsection
-
-@section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-@endsection
-
-@section('page-script')
-<script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-@endsection
-
 @section('content')
 <div class="row">
   <!-- Total Revenue -->
@@ -21,7 +9,7 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h2>Procurement Companies</h2>
-        <a href="{{ route('invitations.create') }}" class="btn btn-info">Invite a Company</a>
+        <a href="{{ route('central.invitations.create') }}" class="btn btn-info">Invite a Company</a>
       </div>
       <div class="card-body">
         <table class="table table-borderless table-striped">

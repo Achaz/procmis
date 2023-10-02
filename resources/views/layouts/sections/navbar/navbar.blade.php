@@ -82,10 +82,13 @@ $navbarDetached = ($navbarDetached ?? '');
                 <div class="dropdown-divider"></div>
               </li>
               <li>
-                <a class="dropdown-item" href="{{ route('logout.perform') }}">
-                  <i class='bx bx-power-off me-2'></i>
-                  <span class="align-middle">Log Out</span>
-                </a>
+                <form action="{{ tenant('id') ? route('tenants.logout', tenant('id')) : route('central.logout') }}" method="POST">
+                  @csrf
+                  <button type="submit" class="dropdown-item">
+                    <i class='bx bx-power-off me-2'></i>
+                    <span class="align-middle">Log Out</span>
+                  </button>
+                </form>
               </li>
             </ul>
           </li>
