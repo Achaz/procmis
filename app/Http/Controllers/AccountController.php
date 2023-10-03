@@ -77,9 +77,26 @@ class AccountController extends Controller
    * @param Tenant $account
    * @return View
    */
-  public function show(Tenant $account): View
+  public function show(Tenant $account): View|RedirectResponse
   {
-    return view('central.accounts.show', compact('account'));
+    $company = null;
+
+    /**
+     * We need to get the company details from the tenant.
+     * So we do this by switching the context from central to tenant
+     *
+     * If no company, take the user back with a message.
+     */
+    $account->run(function () use (&$company, $account) {
+      $company = User::where('email', $account->email)->first()?->company;
+    });
+
+    if (is_null($company)) {
+      // This tenant does not have a company profile so, let's just get back to the route we were at.
+      return back()->with('error', 'The selected account does not have a company profile');
+    }
+
+    return view('central.accounts.show', compact('account', 'company'));
   }
 
   /**
