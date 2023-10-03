@@ -14,12 +14,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
     use RememberMeExpiration;
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo;
+
 
     /**
      * Display login page.

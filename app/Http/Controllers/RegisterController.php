@@ -39,8 +39,8 @@ class RegisterController extends Controller
       $invitation->delete();
 
       return redirect()
-        ->route('tenants.dashboard', $details['id'])
-        ->with('success', 'Account successfully registered. Please wait as we prepare your account');
+        ->route('tenants.login', $details['id'])
+        ->with('success', 'Account successfully registered.');
     }
 
     public function requestInvitation() {

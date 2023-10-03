@@ -128,11 +128,10 @@ class AccountController extends Controller
    */
   public function destroy(Tenant $account): \Illuminate\Http\RedirectResponse
   {
-    $this->authorize('delete user');
 
     $account->delete();
 
-    return redirect()->route('tenants.users.index', tenant('id'))
+    return redirect()->route('central.accounts.index')
       ->with('success', 'User deleted successfully');
   }
 }
