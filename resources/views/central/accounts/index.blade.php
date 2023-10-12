@@ -8,7 +8,6 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h3>Accounts</h3>
-        <a class="btn btn-info" href="{{ route('central.invitations.create') }}">Invite User</a>
       </div>
        <div class="card-body">
         @if (session('error'))
