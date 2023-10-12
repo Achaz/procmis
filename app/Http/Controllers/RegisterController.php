@@ -31,13 +31,7 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        //$invitation = Invitation::where("invitation_token", $request->token)->first();
         $details = $request->only(['name', 'password', 'username','email']);
-        // $details['id'] = $request->username;
-        // $details['email'] = $request->email;
-        // $details['name'] = $request->username;
-        // $details['password'] = Hash::make($request->password);
-
         Tenant::create([
             'id'  => $details['username'],
             'name' => $details['name'],
@@ -56,10 +50,6 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         return view('auth.register');
-        // return view('auth.register', [
-        //   'invitation' => Invitation::where('invitation_token', $request->invitation_token)
-        //     ->firstOrFail()
-        // ]);
     }
 
     /**

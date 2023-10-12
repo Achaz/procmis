@@ -47,8 +47,6 @@ class CreateTenantAdmin implements ShouldQueue
           
         });
 
-        
-
         // We no longer need this password on the Tenant model
         $this->tenant->password = null;
         $this->tenant->save();

@@ -17,7 +17,6 @@ class CheckApproved
     public function handle(Request $request, Closure $next)
     {
         if (tenant('id') && tenant('approved_at') === false) {
-            //abort(403, 'Tenant is not approved. Contact Administrator.');
             return redirect()->route('central.pending');
         }
   
