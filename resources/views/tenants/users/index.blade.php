@@ -51,7 +51,7 @@
                   </tbody>
               </table>
           </div>
-          <div class="d-flex">
+          <div class="mt-5">
               {!! $users->links() !!}
           </div>
         </div>

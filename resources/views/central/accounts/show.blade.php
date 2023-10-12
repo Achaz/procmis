@@ -108,7 +108,8 @@
               {{ $company->zip_code }}
               </div>
             </div>
-            <hr>           
+            <hr>
+            <a href="{{ route('central.accounts.index') }}" class="btn btn-dark">Back</a> </div>           
           </div>
         </div>
     </div>  

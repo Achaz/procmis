@@ -6,9 +6,9 @@
 <div class="row">
   <div class="col-16 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h3>Accounts</h3>
-      </div>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Accounts</h3>
+          </div>
        <div class="card-body">
         @if (session('error'))
           <div class="alert alert-danger">
@@ -63,7 +63,8 @@
                   </tbody>
               </table>
           </div>
-          <div class="d-flex">
+          <div class="row"></div>
+          <div class="mt-5">       
               {!! $accounts->links() !!}
           </div>
         </div>

@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex">
+        <div class="mt-5">
           {!! $bids->links() !!}
         </div>
       </div>

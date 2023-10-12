@@ -45,7 +45,8 @@ class NewUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('A New user has registered with email ' . $this->new_user->email)
+            ->greeting('Hello,')
+            ->line('A new user has registered with email ' . $this->new_user->email)
             ->action('Approve user', route('central.approval'));
     }
 
