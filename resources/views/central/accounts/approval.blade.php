@@ -8,20 +8,23 @@
 @endsection
 
 @section('content')
-<div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Waiting for Approval</div>
-
-                    <div class="card-body">
-                        Your account is waiting  our administrator's approval.
-                        <br />
-                        <br />
-                        Please close the page and wait for email notification.
-                    </div>
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+            <div class="card">
+                <div class="card-body">
+                    <div class="app-brand justify-content-center">
+                        <a href="{{url('/')}}" class="app-brand-link gap-2">
+                            <span class="app-brand-logo demo"><img src={{global_asset("assets/img/logo.svg")}}></span>
+                            <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
+                        </a>
+                    </div>                 
+                    Your account is awaiting  our administrator's approval.
+                    <br />
+                    Please close the page and check your email for login instructions.
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
