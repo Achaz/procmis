@@ -39,7 +39,7 @@ class ProcurementController extends Controller
 
             $user->procurement_plan()->create([
                 'title' => $request->input('title'),
-                'financialperiod	' => $request->input('financialperiod'),
+                'financialperiod'=> $request->input('financialperiod'),
                 'details' => $path,
                 'status' => $request->input('status'),
             ]);

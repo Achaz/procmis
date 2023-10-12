@@ -46,8 +46,8 @@ class Approved extends Notification
         return (new MailMessage)
                     ->subject('Your QED Account Approved')
                     ->greeting('Hello '.$this->new_user->id.',')
-                    ->line('welcome to QED Procurement MIS.')
-                    ->line('Your account has been approved! You can now login to your account')
+                    ->line('Welcome to QED Procurement MIS.')
+                    ->line('Your account has been approved! You may now login to your account')
                     ->action('Login', route('tenants.login', $this->new_user->id))
                     ->line('Thank you for using our application!');
     }

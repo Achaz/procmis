@@ -77,8 +77,10 @@ class BidController extends Controller
         ]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Bids $bid)
     {
+
+        
 
     }
 

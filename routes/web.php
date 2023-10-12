@@ -48,16 +48,6 @@ Route::name('central.')
   });
 
 
-/**
- * User Routes
- */
-/*
-Route::group(['prefix' => 'users'], function() {
-
-    Route::get('/createCompany', 'CreateCompany@index')->name('company.create');
-});
-*/
-//Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin');
 //Route::get('/', 'HomeController@index')->name('home.index');
@@ -76,8 +66,6 @@ Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy'
 Route::group([], function () {
     Route::post("companies/{company}/users/sync", "CreateCompany@userSync")->name("company.user.sync");
     Route::post("companies/{company}/roles/sync", "CreateCompany@roleSync")->name("company.roles.sync");
-
-
     Route::get('/companies/create', 'CreateCompany@index')->name('company.create');
     Route::get('/companies', 'CreateCompany@show')->name('company.show');
     Route::post('/companies', 'CreateCompany@store')->name('company.store');
