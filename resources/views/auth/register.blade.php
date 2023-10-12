@@ -19,17 +19,16 @@
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])</span>
+            <span class="app-brand-logo demo"><img src={{global_asset("assets/img/logo.svg")}}></span>
               <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Welcome to QED Procurement 🚀</h4>
-          <p class="mb-4">App to manage your procurement!</p>
-
+          <div class="mt-3 justify-content-center">
+            <h5>Welcome to QED Procurement</h5>
+          </div>
           <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="post">
-          @csrf
-          <input type="hidden" value="{{ $invitation->invitation_token }}"  id="token" name="token" >
+          @csrf       
             <div class="mb-3">
              <label class="form-label" for="name" >Name</label>
              <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
@@ -46,7 +45,7 @@
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input id="email" type="email" class="form-control disabled" name="email" value="{{ $invitation->email }}" disabled>
+              <input id="email" type="email" class="form-control" name="email" value="" >
               @error('email')
               <div class="alert alert-danger">{{ $message }}</div>
               @enderror

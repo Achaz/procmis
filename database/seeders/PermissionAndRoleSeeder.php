@@ -31,6 +31,15 @@ class PermissionAndRoleSeeder extends Seeder
         Permission::create(['name' => 'update user']);
         Permission::create(['name' => 'delete user']);
 
+        //bids
+        Permission::create(['name' => 'create bid']);
+        Permission::create(['name' => 'view bids']);
+        Permission::create(['name' => 'update bid']);
+        Permission::create(['name' => 'delete bid']);
+
+        Permission::create(['name' => 'view procurement plan']);
+        Permission::create(['name' => 'create procurement plan']);
+
         Permission::create(['name' => 'update company profile']);
 
         // Manage Suppliers

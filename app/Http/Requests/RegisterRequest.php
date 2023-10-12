@@ -28,7 +28,6 @@ class RegisterRequest extends FormRequest
             'username' => 'required|unique:tenants,id',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
-            'token' => 'required|string|max:40|exists:invitations,invitation_token'
         ];
     }
 }

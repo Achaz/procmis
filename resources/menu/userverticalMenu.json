@@ -40,6 +40,34 @@
         "icon": "menu-icon tf-icons bx bx-building",
         "slug": "layouts",
         "role": "update company profile"
-      }
-    ]
-  }
+      },
+      {
+        "name": "Bids",
+        "icon": "menu-icon tf-icons bx bx-receipt",
+        "slug": "layouts",
+        "role": "view bids",
+        "submenu": [
+          {
+            "route": "tenants.bids.index",
+            "name": "view bids",
+            "slug": "view bids",
+            "role": "view bids"
+          }        
+        ]
+      },
+      {
+        "name": "Procurement Plans",
+        "icon": "menu-icon tf-icons bx bx-briefcase-alt-2",
+        "slug": "layouts",
+        "role": "view procurement plan",
+        "submenu": [
+          {
+            "route": "tenants.procurement.index",
+            "name": "view procurement plan",
+            "slug": "view procurement plan",
+            "role": "view procurement plan"
+          }
+       ]
+    }
+  ]
+}

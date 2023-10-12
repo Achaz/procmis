@@ -23,15 +23,25 @@ Route::name('central.')
   ->middleware(['auth'])
   ->group(function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-   
-    Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
-    Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
-    Route::post('invitations', 'InvitationsController@store')->name('invitations.store');
+    Route::get('/approval', [\App\Http\Controllers\AccountController::class, 'approval'])->name('approval');
+    Route::get('/approval/pending', [\App\Http\Controllers\AccountController::class, 'pending'])->name('pending');
+
+    Route::middleware(['approved'])->group(function () {
+      Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    });
+
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::post('accounts/{account}/deactivate', '\App\Http\Controllers\DeactivateAccount')
       ->name('accounts.deactivate');
     Route::post('accounts/{account}/activate', '\App\Http\Controllers\ActivateAccount')
       ->name('accounts.activate');
-    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::post('/accounts/{account}/approve', [\App\Http\Controllers\AccountController::class, 'approve'])->name('accounts.approve');
+
+    Route::middleware(['admin'])->group(function () {
+      Route::get('invitations', 'InvitationsController@index')->name('invitations.index');
+      Route::get('invitations/create', 'InvitationsController@create')->name('invitations.create');
+      Route::post('invitations', 'InvitationsController@store')->name('invitations.store'); 
+    });
     // Auth
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
       ->name('logout');
@@ -55,11 +65,10 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 Route::get('/user', 'GeneralUserController@index')->name('user');
 
 Route::get('register', 'RegisterController@showRegistrationForm')
-  ->name('tenants.create')
-  ->middleware('hasInvitation');
+  ->name('central.tenants.create');
 Route::post('register', 'RegisterController@register')
-  ->name('register')
-  ->middleware('hasInvitation');
+  ->name('register');
+
 Route::get('/{company}/edit', 'CreateCompany@edit')->name('company.edit');
 Route::get('/{company}/delete', 'CreateCompany@destroy')->name('company.destroy');
 

@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\Approved;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Hash;
@@ -23,8 +24,23 @@ class AccountController extends Controller
 {
     public function index(): View
     {
+
         return view('central.accounts.index', [
-          'accounts' => Tenant::paginate(10)
+          'accounts' => Tenant::whereNotNull('approved_at')->paginate(10)
+        ]);
+    }
+
+    public function pending(): View
+    {
+      return view('central.accounts.approval');
+    }
+
+    public function approval(): View
+    {
+        $tenants = Tenant::whereNull('approved_at')->paginate(10);
+
+        return view('central.accounts.users', [
+          'accounts' => $tenants
         ]);
     }
 
@@ -151,4 +167,22 @@ class AccountController extends Controller
     return redirect()->route('central.accounts.index')
       ->with('success', 'User deleted successfully');
   }
+
+  /*
+  * Approve registered users
+  *
+  */
+  public function approve($user_id)
+  {
+    $user = Tenant::findOrFail($user_id);
+    $user->update(['approved_at'=> now()]);
+
+    //$user->notify(new Approved($user));
+
+    Tenant::find($user_id)?->notify(new Approved($user));
+     
+    return redirect()->route('central.approval')
+      ->with('success', 'Account approved successfully');
+  }
+
 }

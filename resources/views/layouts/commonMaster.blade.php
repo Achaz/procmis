@@ -20,7 +20,8 @@
   <!-- Favicon -->
   <link href="{{ global_asset('assets/images/favicon.png')}}" rel="icon">
   <!-- Include Styles -->
-  @include('layouts/sections/styles')
+  @stack('css')
+  @include('layouts.sections.styles')
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')

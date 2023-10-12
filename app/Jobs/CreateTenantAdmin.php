@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Enums\UserRole;
 use App\Enums\UserType;
 use App\Models\User;
+use App\Notifications\NewUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,10 +44,15 @@ class CreateTenantAdmin implements ShouldQueue
           ]);
 
           $adminUser->assignRole(UserRole::TenantAdmin->value);
+          
         });
+
+        
 
         // We no longer need this password on the Tenant model
         $this->tenant->password = null;
         $this->tenant->save();
+
+        User::find(config('variables.superAdminId'))?->notify(new NewUser($this->tenant));
     }
 }

@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tenants = Tenant::all();
+        $tenants = Tenant::whereNotNull('approved_at');
 
         return view('home.index', ['tenants' => $tenants]);
     }

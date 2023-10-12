@@ -24,7 +24,11 @@
           <!-- /Logo -->
           <h4 class="mb-2">Welcome to QED Procurement</h4>
           <p class="mb-4">Please sign-in to your account</p>
-
+          @if (session('error'))
+          <div class="alert alert-danger">
+              <p>{{ session('error') }}</p>
+          </div>
+          @endif
           <form id="formAuthentication" class="mb-3" action="{{ route('central.login') }}" method="post">
             @csrf
             <div class="mb-3">
@@ -49,11 +53,14 @@
                 <label class="form-check-label" for="remember-me">
                   Remember Me
                 </label>
-              </div>
+                <div class="mb-3">
+                 <br><a href="{{ route('central.tenants.create')}}">Sign up</a>
+                </div>
+              </div>             
             </div>
             <div class="mb-3">
               <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-            </div>
+            </div>           
           </form>
         </div>
       </div>

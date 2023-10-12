@@ -17,14 +17,9 @@
           "slug": "View Accounts"
         },
         {
-          "route": "central.invitations.create",
-          "name": "Invite",
-          "slug": "invite"
-        },
-        {
-          "route": "central.invitations.index",
-          "name": "Invitations",
-          "slug": "Invitations"
+          "route": "central.approval",
+          "name": "Pending Approvals",
+          "slug": "Pending Approvals"
         }
       ]
     }

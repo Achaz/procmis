@@ -17,6 +17,8 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, HasApiTokens;
+
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -56,6 +58,16 @@ class User extends Authenticatable
    public function company(): HasOne
    {
        return $this->hasOne(Company::class);
+   }
+
+   public function bids(): HasMany
+   {
+    return $this->hasMany(Bids::class);
+   }
+
+   public function procurement_plan(): HasMany
+   {
+    return $this->hasMany(ProcurementPlan::class);
    }
 
    /**

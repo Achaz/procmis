@@ -29,7 +29,7 @@
 
           <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="post">
           @csrf
-          <input type="hidden" value="{{ $invitation->invitation_token }}"  id="token" name="token" >
+          
             <div class="mb-3">
              <label class="form-label" for="name" >Name</label>
              <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">

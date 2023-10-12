@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Invitation;
+use App\Notifications\NewUser;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -29,18 +31,22 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-      $invitation = Invitation::where("invitation_token", $request->token)->first();
-      $details = $request->only(['token', 'name', 'password', 'username']);
-      $details['id'] = $request->username;
-      $details['email'] = $invitation->email;
+        //$invitation = Invitation::where("invitation_token", $request->token)->first();
+        $details = $request->only(['name', 'password', 'username','email']);
+        // $details['id'] = $request->username;
+        // $details['email'] = $request->email;
+        // $details['name'] = $request->username;
+        // $details['password'] = Hash::make($request->password);
 
-      Tenant::create($details);
+        Tenant::create([
+            'id'  => $details['username'],
+            'name' => $details['name'],
+            'email' => $details['email'],
+            'username' => $details['username'],
+            'password' => $details['password']
+        ]);
 
-      $invitation->delete();
-
-      return redirect()
-        ->route('tenants.login', $details['id'])
-        ->with('success', 'Account successfully registered.');
+        return view('central.accounts.approval');
     }
 
     public function requestInvitation() {
@@ -49,10 +55,11 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(Request $request)
     {
-        return view('auth.register', [
-          'invitation' => Invitation::where('invitation_token', $request->invitation_token)
-            ->firstOrFail()
-        ]);
+        return view('auth.register');
+        // return view('auth.register', [
+        //   'invitation' => Invitation::where('invitation_token', $request->invitation_token)
+        //     ->firstOrFail()
+        // ]);
     }
 
     /**
@@ -66,4 +73,28 @@ class RegisterController extends Controller
         $invitation->registered_at = $user->created_at;
         $invitation->save();
     }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    protected function create(array $data)
+    {
+        $user = Tenant::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+
+        $admin = Tenant::where('admin', 1) -> first();
+
+        if($admin){
+            $admin->notify(new NewUser($user));
+        }
+
+        return $user;
+    }
+
 }

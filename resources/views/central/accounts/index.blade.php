@@ -11,6 +11,11 @@
         <a class="btn btn-info" href="{{ route('central.invitations.create') }}">Invite User</a>
       </div>
        <div class="card-body">
+        @if (session('error'))
+          <div class="alert alert-danger">
+              <p>{{ session('error') }}</p>
+          </div>
+        @endif
          <div class="table-responsive text-nowrap">
               <table class="table table-striped">
                   <thead>
