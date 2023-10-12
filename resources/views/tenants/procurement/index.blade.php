@@ -12,16 +12,18 @@
                 <h3>Procurement Plans</h3>
                 <a class="btn btn-info" href="{{ route('tenants.procurement.create', tenant('id')) }}">Create Plan</a>
             </div>
-          @if (session('error'))
-          <div class="alert alert-danger">
-              <p>{{ session('error') }}</p>
-          </div>
-          @endif
-          @if (session('success'))
-          <div class="alert alert-success">
-              <p>{{ session('success') }}</p>
-          </div>
-          @endif
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ session('error') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            @if(Session::get('success'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{session::get('success')}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @endif
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
                 <thead>

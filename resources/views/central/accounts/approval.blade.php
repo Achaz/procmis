@@ -19,9 +19,10 @@
                             <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
                         </a>
                     </div>                 
-                    Your account is awaiting  our administrator's approval.
+                    Excellent! your account is awaiting  the administrator's approval.
                     <br />
-                    Please close the page and check your email for login instructions.
+                    <br/>
+                    Please close this page and check your email for login instructions.
                 </div>
             </div>
         </div>

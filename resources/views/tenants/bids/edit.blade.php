@@ -12,16 +12,17 @@
                 </div>
                 <hr>
                 @if (session('error'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ session('error') }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-                @if (session('success'))
-                <div class="alert alert-success">
-                    <p>{{ session('success') }}</p>
+                @if(Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{session::get('success')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @endif
-                
+                @endif                
                 <form class="my-4 relative" method="POST" enctype="multipart/form-data" action="{{ route('tenants.bids.update', [tenant('id'), $bid]) }}">
                 @csrf
                     <div class="row">

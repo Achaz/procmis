@@ -21,6 +21,7 @@
                                     </div>
                                 @endif
                             </div>
+                            
                             <form method="post" action="{{ route('tenants.users.update', [tenant('id'), $user]) }}">
                                 @csrf
                                 @method('put')

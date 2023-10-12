@@ -9,10 +9,17 @@
       <div class="row row-bordered g-0">
         <div class="col-md-6">
            <div class="card-body">
-           @if(Session::get('success'))
-            <div class="alert alert-success">
-                {{session::get('success')}}
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ session('error') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            @endif
+            @if(Session::get('success'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{session::get('success')}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             @endif
             <form action="{{ route('tenants.users.store', tenant('id')) }}" method="post">
             @csrf

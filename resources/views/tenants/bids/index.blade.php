@@ -12,16 +12,18 @@
             <h3>Bids</h3>
             <a class="btn btn-info" href="{{ route('tenants.bids.create', tenant('id')) }}">Create Bid</a>
         </div>
-          @if (session('error'))
-          <div class="alert alert-danger">
-              <p>{{ session('error') }}</p>
+        @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>{{ session('error') }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if(Session::get('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{session::get('success')}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          @endif
-          @if (session('success'))
-          <div class="alert alert-success">
-              <p>{{ session('success') }}</p>
-          </div>
-          @endif
+        @endif
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
                 <thead>

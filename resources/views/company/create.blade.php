@@ -10,16 +10,17 @@
       <div class="row row-bordered g-0">
         <div class="col-md-12">
            <div class="card-body">
-            @if (session('error'))
-            <div class="alert alert-danger">
+           @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ session('error') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-
-            @if (session('success'))
-            <div class="alert alert-success">
-                <p>{{ session('success') }}</p>
-            </div>
+            @if(Session::get('success'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{session::get('success')}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
             @endif
             <form class="my-4" method="POST" action="{{ route('tenants.profile.store', tenant('id')) }}">
             @csrf
@@ -408,7 +409,7 @@
                 </div>
                 <div class="row">
                     <br> <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="btn btn-danger float-end">Submit</button>
+                        <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </div>
                 </div>
             </form>
