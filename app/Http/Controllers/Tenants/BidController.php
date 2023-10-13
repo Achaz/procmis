@@ -79,8 +79,21 @@ class BidController extends Controller
 
     public function destroy(Bids $bid)
     {
+        $file_id = $bid->id;
 
-        
+        $file = Bids::where('id', $file_id)->first();
+
+        //check if the existing file is present and delete it from the storage
+        if (File::exists(storage_path('app/public/'.$file->documents))) {
+
+            File::delete(storage_path('app/public/'.$file->documents));
+
+        }
+
+        $bid->delete();
+
+        return redirect()->route('tenants.bids.index', tenant('id'))
+      ->with('success', 'Bid deleted successfully');
 
     }
 
@@ -143,4 +156,5 @@ class BidController extends Controller
         return response()->download(storage_path('app/public/'.$path));
 
     }
+
 }

@@ -21,6 +21,6 @@ class ActivateAccount extends Controller
         $account->save();
 
         return back()
-          ->with('Account activated successfully');
+          ->with('success','Account activated successfully');
     }
 }

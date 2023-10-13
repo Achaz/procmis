@@ -38,7 +38,7 @@ Route::prefix('/account/{tenant}')
       Route::get('/bids', [\App\Http\Controllers\Tenants\BidController::class,'index'])->name('bids.index');
       Route::post('/bids', [\App\Http\Controllers\Tenants\BidController::class,'store'])->name('bids.store');
       Route::get('/bids/create', [\App\Http\Controllers\Tenants\BidController::class,'create'])->name('bids.create');
-      Route::post('/bids/{bid}/delete',[\App\Http\Controllers\Tenants\BidController::class,'destroy'])->name('bids.destroy');
+      Route::delete('/bids/{bid}/delete',[\App\Http\Controllers\Tenants\BidController::class,'destroy'])->name('bids.destroy');
       Route::get('/bids/{bid}/edit',[\App\Http\Controllers\Tenants\BidController::class,'edit'])->name('bids.edit');
       Route::post('/bids/{bid}/update',[\App\Http\Controllers\Tenants\BidController::class,'update'])->name('bids.update');
       Route::get('/bids/download/{bid}', [\App\Http\Controllers\Tenants\BidController::class, 'downloadFile'])->name('bids.download');
@@ -46,7 +46,7 @@ Route::prefix('/account/{tenant}')
       Route::get('/procurement/create', [\App\Http\Controllers\Tenants\ProcurementController::class,'create'])->name('procurement.create');
       Route::post('/procurement', [\App\Http\Controllers\Tenants\ProcurementController::class,'store'])->name('procurement.store');
       Route::get('/procurement/{procurementplan}/edit', [\App\Http\Controllers\Tenants\ProcurementController::class,'edit'])->name('procurement.edit');
-      Route::post('/procurement/{procurementplan}/delete', [\App\Http\Controllers\Tenants\ProcurementController::class,'delete'])->name('procurement.destroy');
+      Route::delete('/procurement/{procurementplan}/delete', [\App\Http\Controllers\Tenants\ProcurementController::class,'destroy'])->name('procurement.destroy');
       Route::post('/procurement/{procurementplan}/update', [\App\Http\Controllers\Tenants\ProcurementController::class,'update'])->name('procurement.update');
       Route::get('/procurement/download/{procurementplan}', [\App\Http\Controllers\Tenants\ProcurementController::class, 'downloadFile'])->name('procurement.download');
     });

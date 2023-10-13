@@ -21,6 +21,6 @@ class DeactivateAccount extends Controller
         $account->save();
 
         return back()
-          ->with('Account deactivated successfully');
+          ->with('success','Account deactivated successfully');
     }
 }

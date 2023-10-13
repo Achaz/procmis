@@ -69,6 +69,25 @@ class ProcurementController extends Controller
         ]);
     }
 
+    public function destroy(ProcurementPlan $procurementplan)
+    {
+        $file_id = $procurementplan->id;
+
+        $file = ProcurementPlan::where('id', $file_id)->first();
+
+        //check if the existing file is present and delete it from the storage
+        if (File::exists(storage_path('app/public/'.$file->details))) {
+
+            File::delete(storage_path('app/public/'.$file->details));
+
+        }
+
+        $procurementplan->delete();
+  
+        return redirect()->route('tenants.procurement.index', tenant('id'))
+        ->with('success', 'Procurement plan deleted successfully');
+    }
+
     public function update(Request $request, ProcurementPlan $procurementplan)
     {
        
