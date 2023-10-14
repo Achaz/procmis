@@ -55,7 +55,7 @@
                   Remember Me
                 </label>
                 <div class="mb-3">
-                 <br><a href="{{ route('central.tenants.create')}}">Sign up</a>
+                 <br>Need an account?<a href="{{ route('central.tenants.create')}}"> Sign up</a>
                 </div>
               </div>             
             </div>
