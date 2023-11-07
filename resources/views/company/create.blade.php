@@ -4,26 +4,30 @@
 
 
 @section('content')
-<div class="row">
-  <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-    <div class="card">
-      <div class="row row-bordered g-0">
-        <div class="col-md-12">
+<div class="mt-3">
+</div>
+<div class="row"> 
+    <div class="col-8 mx-auto">
+        <div class="card">
            <div class="card-body">
-           @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p>{{ session('error') }}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-            @if(Session::get('success'))
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  {{session::get('success')}}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            @endif
-            <form class="my-4" method="POST" action="{{ route('tenants.profile.store', tenant('id')) }}">
-            @csrf
+                <div class="mt-2">
+                    <h4>Company Information</h4>                 
+                </div>
+                <hr>
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>{{ session('error') }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if(Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{session::get('success')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                <form class="my-4" method="POST" action="{{ route('tenants.profile.store', tenant('id')) }}">
+                @csrf
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group mb-2">
@@ -407,16 +411,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="mt-3">
                     <br> <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
                     </div>
                 </div>
-            </form>
-          </div>
+            </form>        
         </div>
-      </div>
-    </div>
+     </div>
   </div>
 </div>
 @endsection

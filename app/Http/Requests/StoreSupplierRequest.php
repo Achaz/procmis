@@ -13,7 +13,7 @@ class StoreSupplierRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,28 @@ class StoreSupplierRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|unique:invitations',
+            'user_id' => 'nullable',
+            'suppliername' => 'required|string',
+            'supplierphone'  => 'required|string',
+            'supplieraddress' => 'nullable',
+            'suppliercity'  => 'required|string',
+            'supplierstate'  => 'nullable',
+            'supplierzip'  => 'nullable',
+            'suppliercountry'  => 'required|string',
+            'password' => 'required|string'
+        ];
+    }
+
+    /**
+     * Custom error messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.unique' => 'Invitation with this supplier email address has already requested.'
         ];
     }
 }

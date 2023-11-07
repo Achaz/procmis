@@ -79,6 +79,11 @@ class User extends Authenticatable
    {
        return $this->hasMany(User::class);
    }
+   
+   public function suppliers(): HasMany
+   {
+    return $this->hasMany(Supplier::class);
+   }
 
    public function assignedRoles(): Attribute
    {

@@ -1,34 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tenants;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Models\Invitation;
-use Illuminate\Http\Request;
+use App\Models\Tenant;
+use App\Notifications\NewSupplier;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class InvitationsController extends Controller
+class SupplyerInvitiations extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
-    public function index(Request $request)
-    {
-        $invitations = Invitation::whereNull('registered_at')
-          ->orderBy('created_at', 'desc')
-          ->get();
-
-        return view('invitations.index', compact('invitations'));
-    }
-
     public function create()
     {
       return view('invitations.create');
@@ -38,10 +21,15 @@ class InvitationsController extends Controller
     {
         $details = $request->validated();
         $invitation = new Invitation($details);
+        if (Auth::check()) {
+            $invitation->user_id = $request->user()->id;
+        }
         $invitation->invitation_token = $invitation->generateInvitationToken();
         $invitation->save();
 
-        return redirect()->route('tenants.suppliers.invite')
+        $invitation->notify(new NewSupplier($invitation));
+        
+        return redirect()->route('tenants.suppliers.invite',tenant('id'))
             ->with('success', 'Invitation sent to supplier successfully');
     }
 }

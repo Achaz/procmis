@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Invitation extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
+     
     protected $fillable = [
         'email',
         'invitation_token',
@@ -27,6 +29,6 @@ class Invitation extends Model
     }
 
     public function getLink() {
-        return urldecode(route('register') . '?invitation_token=' . $this->invitation_token);
+        return urldecode(route('tenants.suppliers.create', tenant('id')) . '?invitation_token=' . $this->invitation_token);
     }
 }

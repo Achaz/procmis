@@ -30,8 +30,15 @@ Route::prefix('/account/{tenant}')
   ->name('tenants.')
   ->group(function () {
 
+    Route::get('/suppliers/create', [\App\Http\Controllers\Tenants\SupplierController::class,'create'])->name('suppliers.create');
+    Route::post('/invite',[\App\Http\Controllers\Tenants\SupplyerInvitiations::class,'store'])->name('invitations.store');
+    Route::get('/invitation', [\App\Http\Controllers\Tenants\SupplierController::class,'create'])->name('invitations.create');
+    Route::post('/suppliers', [\App\Http\Controllers\Tenants\SupplierController::class,'store'])->name('suppliers.store');
+    
     Route::middleware(['auth'])->group(function () {
+
       Route::get('/', '\App\Http\Controllers\Tenants\DashboardController')->name('dashboard');
+      Route::get('/invite', [\App\Http\Controllers\Tenants\SupplierController::class,'invite'])->name('suppliers.invite');   
       Route::resource('/users', \App\Http\Controllers\Tenants\UsersController::class);
       Route::resource('/roles', \App\Http\Controllers\Tenants\RoleController::class);
       Route::resource('/profile', CompanyProfileController::class);
@@ -42,6 +49,14 @@ Route::prefix('/account/{tenant}')
       Route::get('/bids/{bid}/edit',[\App\Http\Controllers\Tenants\BidController::class,'edit'])->name('bids.edit');
       Route::post('/bids/{bid}/update',[\App\Http\Controllers\Tenants\BidController::class,'update'])->name('bids.update');
       Route::get('/bids/download/{bid}', [\App\Http\Controllers\Tenants\BidController::class, 'downloadFile'])->name('bids.download');
+
+      Route::get('/suppliers', [\App\Http\Controllers\Tenants\SupplierController::class,'index'])->name('suppliers.index');
+      
+      
+      Route::delete('/suppliers/{supplier}/delete',[\App\Http\Controllers\Tenants\SupplierController::class,'destroy'])->name('suppliers.destroy');
+      Route::get('/suppliers/{supplier}/edit',[\App\Http\Controllers\Tenants\SupplierController::class,'edit'])->name('suppliers.edit');
+      Route::post('/suppliers/{supplier}/update',[\App\Http\Controllers\Tenants\SupplierController::class,'update'])->name('suppliers.update');
+
       Route::get('/procurement', [\App\Http\Controllers\Tenants\ProcurementController::class,'index'])->name('procurement.index');
       Route::get('/procurement/create', [\App\Http\Controllers\Tenants\ProcurementController::class,'create'])->name('procurement.create');
       Route::post('/procurement', [\App\Http\Controllers\Tenants\ProcurementController::class,'store'])->name('procurement.store');

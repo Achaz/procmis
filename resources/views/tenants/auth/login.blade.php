@@ -24,7 +24,18 @@
           <!-- /Logo -->
           <h4 class="mb-2">Welcome to QED Procurement</h4>
           <p class="mb-4">Please sign-in to your account</p>
-
+          @if (session('error'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <p>{{ session('error') }}</p>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          @endif
+          @if(Session::get('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{session::get('success')}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          @endif
           <form id="formAuthentication" class="mb-3" action="{{ route('tenants.login', tenant('id')) }}" method="post">
             @csrf
             <div class="mb-3">

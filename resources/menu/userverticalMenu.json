@@ -32,7 +32,15 @@
         "name": "Suppliers",
         "icon": "menu-icon tf-icons bx bx-group",
         "slug": "layouts",
-        "role": "view supplier"
+        "role": "view supplier",
+        "submenu": [
+          {
+            "route": "tenants.suppliers.index",
+            "name": "view supplier",
+            "slug": "view supplier",
+            "role": "view supplier"
+          }
+        ]
       },
       {
         "route": "tenants.profile.index",
@@ -67,7 +75,8 @@
             "slug": "view procurement plan",
             "role": "view procurement plan"
           }
-       ]
-    }
+        ]
+      }
   ]
+
 }
