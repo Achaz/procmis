@@ -413,7 +413,7 @@
                 </div>
                 <div class="mt-3">
                     <br> <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary float-end">Submit</button>
+                        <button type="submit" class="btn btn-info float-end">Submit</button>
                     </div>
                 </div>
             </form>        

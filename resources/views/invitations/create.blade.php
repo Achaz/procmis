@@ -43,7 +43,7 @@
             </div>
             <div class="d-flex justify-content-center">
               <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Send invitation</button>
+                <button type="submit" class="btn btn-info">Send invitation</button>
               </div>
             </div>
           </form>                

@@ -108,7 +108,7 @@
                     </div>
                     <div class="mt-5">                   
                         <div class="col-xs-12 col-sm-12 col-md-12 ">
-                            <button type="submit" class="btn btn-success float-end">Register</button>
+                            <button type="submit" class="btn btn-info float-end">Register</button>
                         </div>     
                     </div> 
                 </form>

@@ -85,7 +85,7 @@
                     </div> 
                     <div  class="mt-3">
                         <br> <div class="col-xs-12 col-sm-12 col-md-12 ">
-                            <button type="submit" class="btn btn-success float-end">Update</button>
+                            <button type="submit" class="btn btn-info float-end">Update</button>
                             <a href="{{ route('tenants.suppliers.index', tenant('id')) }}" class="btn btn-dark float-right">Cancel</a>
                         </div>
                     </div>  
